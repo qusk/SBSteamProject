@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections;
 using Unity.VisualScripting;
+using JetBrains.Annotations;
 
 public class DiceManager : MonoBehaviour
 {
@@ -55,7 +56,7 @@ public class DiceManager : MonoBehaviour
             }
         }
 
-        UpdateUI();
+        UpdateGameUI();
 
         if(rollBtn != null)
         {
@@ -72,7 +73,7 @@ public class DiceManager : MonoBehaviour
             if (_currentRerollCount > 0)
             {
                 _currentRerollCount--;
-                UpdateUI();
+                UpdateGameUI();
             }
             else return;
         }
@@ -127,12 +128,33 @@ public class DiceManager : MonoBehaviour
 
         ApplyResultToBoard();
 
+        // 임시 점수 계산
+        int totalScore = 0;
+        foreach(int val in _resultStore)
+        {
+            totalScore += val;
+        }
+
+        if(GameManager.instance != null)
+        {
+            GameManager.instance.ProcessRoundResult(totalScore);
+        }
+
         _isRolling = false;
         _isFirstRoll = false;
-        UpdateUI();
+        UpdateGameUI();
     }
 
-    
+    public Sprite[] GetLastDiceSprites()
+    {
+        Sprite[] lastDiceSprite = new Sprite[panelDiceScript.Length];
+        for(int i = 0; i < panelDiceScript.Length; i++)
+        {
+            lastDiceSprite[i] = panelDiceScript[i].GetCurrentSprite();
+        }
+
+        return lastDiceSprite;
+    }
 
     void ApplyResultToBoard()
     {
@@ -143,7 +165,7 @@ public class DiceManager : MonoBehaviour
         }
     }
 
-    void UpdateUI()
+    void UpdateGameUI()
     {
         if(rerollText != null)
         {
@@ -158,5 +180,17 @@ public class DiceManager : MonoBehaviour
         {
             rollBtn.interactable = true;
         }
+    }
+
+    public void ResetForNewRound()
+    {
+        if(rollBtn != null)
+        {
+            rollBtn.interactable = true;
+        }
+
+        _currentRerollCount = maxRerollCount;
+        _isFirstRoll = true;
+        UpdateGameUI();
     }
 }
