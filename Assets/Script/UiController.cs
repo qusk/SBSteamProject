@@ -198,12 +198,12 @@ public class UiController : MonoBehaviour
 
     public void SetBgmVolume(float volume) // 배경음 조절
     {
-        SoundManager.instance.SetBgmVolume(volume);
+        SoundManager.instance.SetBgmVolume(volume);       
     }
 
     public void SetSfxVolume(float volume) // 효과음 조절
     {
-        SoundManager.instance.SetSfxVolume(volume);
+        SoundManager.instance.SetSfxVolume(volume);       
     }
 
     public void FBgmButton()
