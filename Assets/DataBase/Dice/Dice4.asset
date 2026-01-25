@@ -15,4 +15,5 @@ MonoBehaviour:
   itemIcon: {fileID: 1984119530689476655, guid: 21e54e28ad9adb348b9a43590824155e, type: 3}
   itemName: "\uD480"
   weight: 25
+  Gold: 3
   itemDesc: 

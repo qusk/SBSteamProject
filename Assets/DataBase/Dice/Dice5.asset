@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3a3623a9c7d9fb64a8aee4ff02532529, type: 3}
-  m_Name: Dice1
+  m_Name: Dice5
   m_EditorClassIdentifier: Assembly-CSharp::ItemSo
-  itemIcon: {fileID: 8824582965669751061, guid: 1c7b5899711b25c47b9005a47996dafc, type: 3}
-  itemName: "\uBD88"
-  weight: 10
+  itemIcon: {fileID: 711185057794172787, guid: 2e94df43f73bae541b951b5d64b24dbf, type: 3}
+  itemName: "\uBC88\uAC1C"
+  weight: 25
+  Gold: 3
   itemDesc: 

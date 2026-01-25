@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ShopItem : MonoBehaviour
@@ -12,10 +13,21 @@ public class ShopItem : MonoBehaviour
     
     [Header("구매 주사위")]
     public BuyItem[] buyDice;
+    public ItemSlot[] itemSlots;
+    public GameObject Dice;
+
 
 
     int randomIndex = -1;
     List<int> usedIndex = new List<int>();
+
+    void Start()
+    {
+        for(int i = 0; i < itemDB.Length; i++)
+        {
+            total += itemDB[i].weight;
+        }
+    }
 
     public int RandomItem()
     {
@@ -26,32 +38,34 @@ public class ShopItem : MonoBehaviour
 
         for(int i = 0; i < itemDB.Length; i++)
         {
-            
             weight += itemDB[i].weight;
             Debug.Log(selectNum + ":" +weight);
             if(selectNum <= weight)
             {
-
                 return i;
-                    //return itemDB[i]; 
             }
         }
         return -1;
     }
+
     
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        for(int i = 0; i < itemDB.Length; i++)
-        {
-            total += itemDB[i].weight;
-        }
-    }
 
     public void reroll()
     {
-        for (int i = 0; i < buyDice.Length; i++)
+        for (int i = 0; i < itemSlots.Length; i++)
         {
+            if (itemSlots[i].transform.childCount > 0)
+            {
+                buyDice[i] = itemSlots[i].transform.GetComponentInChildren<BuyItem>();
+            }
+            else
+            {
+                buyDice[i] = Instantiate(Dice).GetComponent<BuyItem>();
+                buyDice[i].transform.SetParent(itemSlots[i].transform);
+                buyDice[i].transform.GetComponent<RectTransform>().localPosition = Vector3.zero;
+            }
+
+
             randomIndex = RandomItem();
             if (!usedIndex.Contains(randomIndex))
             {
@@ -62,9 +76,10 @@ public class ShopItem : MonoBehaviour
             {
                 i--;
             }
-        }
-        usedIndex.Clear();    
-    }
 
-    
+        }
+        usedIndex.Clear();
+
+    }
+  
 }
