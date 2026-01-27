@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a3623a9c7d9fb64a8aee4ff02532529, type: 3}
+  m_Name: Dice5
+  m_EditorClassIdentifier: Assembly-CSharp::ItemSo
+  itemIcon: {fileID: 711185057794172787, guid: 2e94df43f73bae541b951b5d64b24dbf, type: 3}
+  itemName: "\uBC88\uAC1C"
+  weight: 25
+  Gold: 3
+  itemDesc: "[\uBC88\uAC1C \uC8FC\uC0AC\uC704]\n\uAC00\uACA9: 3\n\uC120\uD0DD\uD55C
+    \uB2E4\uB978 \uC8FC\uC0AC\uC704\uC758 \uB208\uAE08\uC758 \uC218\uC5D0 -1\uC744
+    \uD558\uACE0\n\uC790\uC2E0\uC758 \uC8FC\uC0AC\uC704\uC758 \uB208\uAE08\uC758
+    \uC218\uC5D0 +1\uC744 \uD55C\uB2E4."
