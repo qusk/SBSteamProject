@@ -3,66 +3,77 @@ using UnityEngine;
 
 public class ScoreManager : MonoBehaviour
 {
-    public int CalculateScore(List<int> diceValues, List<DiceAbility> abilities)
+    public static ScoreManager instance;
+
+    private void Awake()
     {
-        // 주사위 상태 생성
+        if (instance == null) instance = this;
+    }
+
+    public int CalculateScore(List<int> rollResult, List<DiceAbility> abilities)
+    {
         List<DiceState> diceStates = new List<DiceState>();
-
-        for(int i = 0; i < diceValues.Count; i++)
+        for (int i = 0; i < rollResult.Count; i++)
         {
-            diceStates.Add(new DiceState(i, diceValues[i]));
+            diceStates.Add(new DiceState(i, rollResult[i]));
         }
-        // 능력 없으면 기본 눈금 점수 계산 
-        if(abilities == null || abilities.Count == 0)
+
+        if (abilities == null || abilities.Count == 0)
         {
-            int baseScore = 0;
-            foreach(var state in diceStates)
+            int basicScore = 0;
+            foreach (var state in diceStates)
             {
-                baseScore += state.scoreValue;
-                return baseScore;
+                basicScore += state.scoreValue;
+                
             }
+            return basicScore;
         }
 
-        // 점수 계산 파이프 라인
-        // Step 1. 룰상 효과
-        for(int i = 0; i < diceStates.Count; i++)
+
+        // 점수 로직
+        // 1. 룰상 효과
+        for (int i = 0; i < diceStates.Count; i++)
         {
-            if(i < abilities.Count && abilities[i] != null)
+            if (i < abilities.Count && abilities[i] != null)
             {
                 abilities[i].OnRuleEffect(diceStates[i], diceStates);
             }
         }
-        // Step 2. 주사위 굴러갔을 시 효과
-        for(int i = 0; i < diceStates.Count; i++)
+
+        // 2. 굴림 효과
+        for (int i = 0; i < diceStates.Count; i++)
         {
-            if (i < abilities.Count && abilities[i] != null) { }
+            if (i < abilities.Count && abilities[i] != null)
             {
-                abilities[i].OnRollDiceEffect(diceStates[i], diceStates);
-            }
-        }
-        // Step 3. 점수 계산 시 효과
-        for(int i = 0; i < diceStates.Count; i++)
-        {
-            if(i < abilities.Count && abilities[i] != null)
-            {
-                abilities[i].OnBeforeCalculateScoreEffect(diceStates[i], diceStates);
-            }
-        }
-        // Step 4. 점수 계산
-        int currentScore = 0;
-        foreach(var state in diceStates)
-        {
-            currentScore += state.scoreValue;
-        }
-        // Step 5. 점수 계산 후 효과
-        for(int i = 0; i < diceStates.Count; i++)
-        {
-            if(i < abilities.Count && abilities[i] != null)
-            {
-                abilities[i].OnAfterCalculateScoreEffect(diceStates[i], diceStates, ref currentScore);
+                abilities[i].OnRollEffect(diceStates[i], diceStates);
             }
         }
 
-        return currentScore;
+        // 3. 점수 계산 전 효과
+        for (int i = 0; i < diceStates.Count; i++)
+        {
+            if(i < abilities.Count && abilities[i] != null)
+            {
+                abilities[i].BeforeCalculateEffect(diceStates[i], diceStates);
+            }
+        }
+
+        // 4. 점수 계산
+        int totalScore = 0;
+        foreach(var state in diceStates)
+        {
+            totalScore += state.scoreValue;
+        }
+
+        // 5. 점수 계산 후 효과
+        for(int i = 0; i < diceStates.Count; i++)
+        {
+            if(i < abilities.Count && abilities[i] != null)
+            {
+                abilities[i].AfterCalculateEffect(diceStates[i], diceStates, ref totalScore);
+            }
+        }
+
+        return totalScore;
     }
 }

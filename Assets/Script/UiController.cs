@@ -1,4 +1,7 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using TMPro;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,24 +17,30 @@ public class UiController : MonoBehaviour
     public GameObject sfxVolumeImage;
     public GameObject sfxVolumeMuteImage;
 
-    [Header("1. 인게임 정보 UI (상시 표시)")]
+    public DiceSkin defaultDiceSkin;
+
+    [Header("인게임 정보 UI (상시 표시)")]
     public TextMeshProUGUI roundInfoText; 
     public TextMeshProUGUI lifeText;     
     public TextMeshProUGUI targetScoreInfoText;
     public TextMeshProUGUI myScoreInfoText;
 
-    [Header("2. 라운드 결과 패널 (승리/패배)")]
+    [Header("라운드 결과 패널 (승리/패배)")]
     public GameObject resultPanel;
     public TextMeshProUGUI resultTitleText;  
     public TextMeshProUGUI resultTargetScoreText;
     public TextMeshProUGUI resultMyScoreText;
     public TextMeshProUGUI resultLifeText; 
 
-    [Header("3. 게임 오버 패널")]
+    [Header("게임 오버 패널")]
     public GameObject gameOverPanel;
     public TextMeshProUGUI goRoundText; 
     public TextMeshProUGUI goBestScoreText;
     public Image[] lastDice;
+
+    [Header("다시 던지기")]
+    public Button rollBtn;
+    public TextMeshProUGUI rerollText;
 
 
     private void Awake()
@@ -43,6 +52,14 @@ public class UiController : MonoBehaviour
         else
         {
             Destroy(gameObject);
+        }
+    }
+
+    void Start()
+    {
+        if(rollBtn != null)
+        {
+            rollBtn.onClick.AddListener(GameManager.instance.OnClickRollBtn);
         }
     }
 
@@ -104,7 +121,7 @@ public class UiController : MonoBehaviour
         }
     }
 
-    public void ShowGameOverpanel(int round, int bestScore, Sprite[] lastDiceImages)
+    public void ShowGameOverPanel(int round, int bestScore, List<DiceAbility> abilites, List<int> values)
     {
         if (gameOverPanel != null)
         {
@@ -121,20 +138,52 @@ public class UiController : MonoBehaviour
             goBestScoreText.text = $"Your Best Score: {bestScore}";
         }
 
-        if(lastDice != null && lastDiceImages != null)
+        if(lastDice != null)
         {
             for (int i = 0; i < lastDice.Length; i++)
             {
-                if(i < lastDiceImages.Length)
+                if(i < values.Count)
                 {
                     lastDice[i].gameObject.SetActive(true);
-                    lastDice[i].sprite = lastDiceImages[i];
+
+                    DiceAbility ability = null;
+                    
+                    if(abilites != null && i < abilites.Count)
+                    {
+                        ability = abilites[i];
+                    }
+                    int index = values[i];
+
+                    if(ability != null && ability.skin != null)
+                    {
+                        lastDice[i].sprite = ability.skin.GetSprite(index);
+                    }
+                    else if(defaultDiceSkin != null)
+                    {
+                        lastDice[i].sprite = defaultDiceSkin.GetSprite(index);
+                    }
                 }
                 else
                 {
                     lastDice[i].gameObject.SetActive(false);
                 }
             }
+        }
+    }
+
+    public void UpdateRerollInfo(int count, bool isFirst)
+    {
+        if(rerollText != null)
+        {
+            rerollText.text = isFirst ? "Roll" : $"Reroll :{count}";
+        }
+    }
+
+    public void SetRollBtnInteractable(bool state)
+    {
+        if(rollBtn != null)
+        {
+            rollBtn.interactable = state;
         }
     }
 
