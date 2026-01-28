@@ -1,21 +1,20 @@
+
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class DiceState
 {
-    //주사위 순서
-    public int diceSequence;
-    //주사위 최초 눈금
-    public int originalValue;
-    //주사위가 효과를 받을 시 변경되는 눈금
-    public int modifiedValue;
-    //주사위 점수 값
-    public int scoreValue;
+
+    public int sequence;      // 주사위 순서
+    public int originalValue; // 최초 주사위 값
+    public int modifiedValue; // 효과 적용 후 주사위 값
+    public int scoreValue;    // 점수 계산용 주사위 값
 
     public DiceState(int sequence, int value)
     {
-        diceSequence = sequence;
+        this.sequence = sequence;
         originalValue = value;
-        originalValue = value;
+        modifiedValue = value;
         scoreValue = value;
     }
 }

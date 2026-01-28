@@ -526,7 +526,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 8824582965669751061, guid: 1c7b5899711b25c47b9005a47996dafc, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -557,14 +557,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Dice
   diceImage: {fileID: 258712856}
-  diceSprite:
-  - {fileID: 8824582965669751061, guid: 1c7b5899711b25c47b9005a47996dafc, type: 3}
-  - {fileID: 8653420010596883646, guid: bb5aaef263cdb7e4786c5678a66fdfd8, type: 3}
-  - {fileID: 8837760956671744427, guid: c2275634f8fdc8a4383a8a2bfbc0ff3e, type: 3}
-  - {fileID: 1984119530689476655, guid: 21e54e28ad9adb348b9a43590824155e, type: 3}
-  - {fileID: 711185057794172787, guid: 2e94df43f73bae541b951b5d64b24dbf, type: 3}
-  - {fileID: 8601360656678488391, guid: b72a563c40cda094394bfa696a8d8501, type: 3}
-  effectPreb: {fileID: 0}
+  effectPrefab: {fileID: 0}
   rollSound: {fileID: 0}
 --- !u!1 &365483008
 GameObject:
@@ -944,11 +937,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e7dda3ec5d06a04192905b5ea7a2b08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UiController
-  UIWindow: {fileID: 0}
-  bgmVolumeImage: {fileID: 0}
-  bgmVolumeMuteImage: {fileID: 0}
-  sfxVolumeImage: {fileID: 0}
-  sfxVolumeMuteImage: {fileID: 0}
+  defaultDiceSkin: {fileID: 11400000, guid: a2a0f760336f6a2479154757fbdc27b7, type: 2}
   roundInfoText: {fileID: 1779552945}
   lifeText: {fileID: 192740209}
   targetScoreInfoText: {fileID: 370001214}
@@ -968,6 +957,8 @@ MonoBehaviour:
   - {fileID: 1349017016}
   - {fileID: 587514862}
   - {fileID: 946912531}
+  rollBtn: {fileID: 1933890307}
+  rerollText: {fileID: 1638696735}
 --- !u!4 &453369281
 Transform:
   m_ObjectHideFlags: 0
@@ -1178,7 +1169,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 8824582965669751061, guid: 1c7b5899711b25c47b9005a47996dafc, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1209,14 +1200,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Dice
   diceImage: {fileID: 494824174}
-  diceSprite:
-  - {fileID: 8824582965669751061, guid: 1c7b5899711b25c47b9005a47996dafc, type: 3}
-  - {fileID: 8653420010596883646, guid: bb5aaef263cdb7e4786c5678a66fdfd8, type: 3}
-  - {fileID: 8837760956671744427, guid: c2275634f8fdc8a4383a8a2bfbc0ff3e, type: 3}
-  - {fileID: 1984119530689476655, guid: 21e54e28ad9adb348b9a43590824155e, type: 3}
-  - {fileID: 711185057794172787, guid: 2e94df43f73bae541b951b5d64b24dbf, type: 3}
-  - {fileID: 8601360656678488391, guid: b72a563c40cda094394bfa696a8d8501, type: 3}
-  effectPreb: {fileID: 0}
+  effectPrefab: {fileID: 0}
   rollSound: {fileID: 0}
 --- !u!1 &574382347
 GameObject:
@@ -1752,10 +1736,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bad9215d96cbc5541999f0b3442e3c58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  round: 1
-  targetScore: 20
-  maxLifes: 3
-  currentLifes: 0
+  currentRound: 1
+  targetScore: 100
+  maxLives: 1
+  currentLives: 0
+  maxRerollCount: 1
   currentScore: 0
   bestScore: 0
   diceManager: {fileID: 1601443936}
@@ -2354,7 +2339,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 8824582965669751061, guid: 1c7b5899711b25c47b9005a47996dafc, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2385,14 +2370,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Dice
   diceImage: {fileID: 946507314}
-  diceSprite:
-  - {fileID: 8824582965669751061, guid: 1c7b5899711b25c47b9005a47996dafc, type: 3}
-  - {fileID: 8653420010596883646, guid: bb5aaef263cdb7e4786c5678a66fdfd8, type: 3}
-  - {fileID: 8837760956671744427, guid: c2275634f8fdc8a4383a8a2bfbc0ff3e, type: 3}
-  - {fileID: 1984119530689476655, guid: 21e54e28ad9adb348b9a43590824155e, type: 3}
-  - {fileID: 711185057794172787, guid: 2e94df43f73bae541b951b5d64b24dbf, type: 3}
-  - {fileID: 8601360656678488391, guid: b72a563c40cda094394bfa696a8d8501, type: 3}
-  effectPreb: {fileID: 0}
+  effectPrefab: {fileID: 0}
   rollSound: {fileID: 0}
 --- !u!1 &946912530
 GameObject:
@@ -2664,7 +2642,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 8824582965669751061, guid: 1c7b5899711b25c47b9005a47996dafc, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2695,14 +2673,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Dice
   diceImage: {fileID: 988091366}
-  diceSprite:
-  - {fileID: 8824582965669751061, guid: 1c7b5899711b25c47b9005a47996dafc, type: 3}
-  - {fileID: 8653420010596883646, guid: bb5aaef263cdb7e4786c5678a66fdfd8, type: 3}
-  - {fileID: 8837760956671744427, guid: c2275634f8fdc8a4383a8a2bfbc0ff3e, type: 3}
-  - {fileID: 1984119530689476655, guid: 21e54e28ad9adb348b9a43590824155e, type: 3}
-  - {fileID: 711185057794172787, guid: 2e94df43f73bae541b951b5d64b24dbf, type: 3}
-  - {fileID: 8601360656678488391, guid: b72a563c40cda094394bfa696a8d8501, type: 3}
-  effectPreb: {fileID: 0}
+  effectPrefab: {fileID: 0}
   rollSound: {fileID: 0}
 --- !u!1 &1084784071
 GameObject:
@@ -3032,7 +3003,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 8824582965669751061, guid: 1c7b5899711b25c47b9005a47996dafc, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3063,14 +3034,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Dice
   diceImage: {fileID: 1193525357}
-  diceSprite:
-  - {fileID: 8824582965669751061, guid: 1c7b5899711b25c47b9005a47996dafc, type: 3}
-  - {fileID: 8653420010596883646, guid: bb5aaef263cdb7e4786c5678a66fdfd8, type: 3}
-  - {fileID: 8837760956671744427, guid: c2275634f8fdc8a4383a8a2bfbc0ff3e, type: 3}
-  - {fileID: 1984119530689476655, guid: 21e54e28ad9adb348b9a43590824155e, type: 3}
-  - {fileID: 711185057794172787, guid: 2e94df43f73bae541b951b5d64b24dbf, type: 3}
-  - {fileID: 8601360656678488391, guid: b72a563c40cda094394bfa696a8d8501, type: 3}
-  effectPreb: {fileID: 0}
+  effectPrefab: {fileID: 0}
   rollSound: {fileID: 0}
 --- !u!1 &1213203417
 GameObject:
@@ -3684,7 +3648,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1446300187
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3842,6 +3806,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1535601552
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1535601554}
+  - component: {fileID: 1535601553}
+  m_Layer: 0
+  m_Name: ScoreManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1535601553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1535601552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7b40f41e748bb848809c4fdfdd2ebde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ScoreManager
+--- !u!4 &1535601554
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1535601552}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 584.8919, y: 490.87, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1601443935
 GameObject:
   m_ObjectHideFlags: 0
@@ -3872,8 +3880,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DIceController
   rollPanel: {fileID: 1858321122}
-  rollBtn: {fileID: 1933890307}
-  rerollText: {fileID: 2102087396}
   panelCanvasGroup: {fileID: 1858321126}
   panelDiceScript:
   - {fileID: 258712858}
@@ -3889,8 +3895,10 @@ MonoBehaviour:
   - {fileID: 657297055}
   - {fileID: 1966917179}
   - {fileID: 727828996}
+  diceAbilities: []
+  defaultDiceAbilit: {fileID: 11400000, guid: 4b64720d23fc19843a6f6e7167793ba4, type: 2}
+  defaultDiceSkin: {fileID: 11400000, guid: a2a0f760336f6a2479154757fbdc27b7, type: 2}
   delayNextDice: 2
-  maxRerollCount: 1
 --- !u!4 &1601443937
 Transform:
   m_ObjectHideFlags: 0
@@ -3918,7 +3926,7 @@ GameObject:
   - component: {fileID: 1638696736}
   - component: {fileID: 1638696735}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: RollText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4101,7 +4109,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 8824582965669751061, guid: 1c7b5899711b25c47b9005a47996dafc, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4132,14 +4140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Dice
   diceImage: {fileID: 1662827597}
-  diceSprite:
-  - {fileID: 8824582965669751061, guid: 1c7b5899711b25c47b9005a47996dafc, type: 3}
-  - {fileID: 8653420010596883646, guid: bb5aaef263cdb7e4786c5678a66fdfd8, type: 3}
-  - {fileID: 8837760956671744427, guid: c2275634f8fdc8a4383a8a2bfbc0ff3e, type: 3}
-  - {fileID: 1984119530689476655, guid: 21e54e28ad9adb348b9a43590824155e, type: 3}
-  - {fileID: 711185057794172787, guid: 2e94df43f73bae541b951b5d64b24dbf, type: 3}
-  - {fileID: 8601360656678488391, guid: b72a563c40cda094394bfa696a8d8501, type: 3}
-  effectPreb: {fileID: 0}
+  effectPrefab: {fileID: 0}
   rollSound: {fileID: 0}
 --- !u!1 &1688508752
 GameObject:
@@ -4234,7 +4235,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1710158517
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4661,9 +4662,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1601443936}
-        m_TargetAssemblyTypeName: DiceManager, Assembly-CSharp
-        m_MethodName: OnClickRoll
+      - m_Target: {fileID: 669844170}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: OnClickRollBtn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5106,5 +5107,6 @@ SceneRoots:
   - {fileID: 1361143424}
   - {fileID: 699021937}
   - {fileID: 1601443937}
-  - {fileID: 669844171}
   - {fileID: 453369281}
+  - {fileID: 1535601554}
+  - {fileID: 669844171}

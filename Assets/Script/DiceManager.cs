@@ -3,6 +3,7 @@ using DG.Tweening;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using JetBrains.Annotations;
 
@@ -10,41 +11,42 @@ public class DiceManager : MonoBehaviour
 {
     [Header("UI 연결")]
     public GameObject rollPanel;
-    public Button rollBtn;
-    public TextMeshProUGUI rerollText;
     public CanvasGroup panelCanvasGroup;
 
     [Header("주사위 오브젝트")]
     public Dice[] panelDiceScript;
     public Image[] boardResultImage;
 
-    [Header("설정")]
-    public float delayNextDice = 1.5f;
-    public int maxRerollCount = 1;
+    [Header("주사위 능력")]
+    public List<DiceAbility> diceAbilities;
 
-    private int _currentRerollCount;
+
+    [Header("기본 설정")]
+    public DiceAbility defaultDiceAbilit;
+    public DiceSkin defaultDiceSkin;
+    public float delayNextDice = 1.5f;
+
     private bool _isRolling = false;
-    private bool _isFirstRoll = true;
     private int[] _resultStore = new int[6];
 
     void Start()
     {
-        _currentRerollCount = maxRerollCount;
+        SetupDiceAbilities();
+        if (rollPanel != null)
+        {
+            rollPanel.SetActive(false);
+        }
+
+        if (panelCanvasGroup != null)
+        {
+            panelCanvasGroup.alpha = 0;
+        }
 
         foreach (var img in boardResultImage)
         {
             if(img != null)
             {
                 img.gameObject.SetActive(false);
-            }
-        }
-
-        if(rollPanel != null)
-        {
-            rollPanel.SetActive(false);
-            if(panelCanvasGroup != null)
-            {
-                panelCanvasGroup.alpha = 0;
             }
         }
 
@@ -55,36 +57,40 @@ public class DiceManager : MonoBehaviour
                 dice.gameObject.SetActive(false);
             }
         }
+    }
 
-        UpdateGameUI();
-
-        if(rollBtn != null)
+    public void SetupDiceAbilities()
+    {
+        for(int i = 0; i < panelDiceScript.Length; i++)
         {
-            rollBtn.onClick.AddListener(OnClickRoll);
+            panelDiceScript[i].SetDefaultSkin(defaultDiceSkin);
+
+            if(i < diceAbilities.Count && diceAbilities[i] != null) 
+            {
+                panelDiceScript[i].SetAbility(diceAbilities[i]);
+            }
+            else
+            {
+                panelDiceScript[i].SetAbility(defaultDiceAbilit);
+            }
         }
     }
-    
-    public void OnClickRoll()
+
+    public void StartRolling()
     {
-        if (_isRolling) return;
-
-        if(!_isFirstRoll)
+        if(_isRolling)
         {
-            if (_currentRerollCount > 0)
-            {
-                _currentRerollCount--;
-                UpdateGameUI();
-            }
-            else return;
+            return;
         }
-
         StartCoroutine(RollRoutine());
     }
+
 
     IEnumerator RollRoutine()
     {
         _isRolling = true;
-        rollBtn.interactable = false;
+
+        UiController.instance.SetRollBtnInteractable(false);
 
         if (rollPanel != null)
         {
@@ -128,21 +134,17 @@ public class DiceManager : MonoBehaviour
 
         ApplyResultToBoard();
 
-        // 임시 점수 계산
-        int totalScore = 0;
-        foreach(int val in _resultStore)
-        {
-            totalScore += val;
-        }
+        // 점수 계산
+        List<int> rollResults = new List<int>(_resultStore);
+      
+        int finalScore = ScoreManager.instance.CalculateScore(rollResults, diceAbilities);
 
         if(GameManager.instance != null)
         {
-            GameManager.instance.ProcessRoundResult(totalScore);
+            GameManager.instance.ProcessRoundResult(finalScore, diceAbilities, rollResults);
         }
 
         _isRolling = false;
-        _isFirstRoll = false;
-        UpdateGameUI();
     }
 
     public Sprite[] GetLastDiceSprites()
@@ -165,32 +167,8 @@ public class DiceManager : MonoBehaviour
         }
     }
 
-    void UpdateGameUI()
-    {
-        if(rerollText != null)
-        {
-            rerollText.text = _isFirstRoll ? $"Reroll: {maxRerollCount}" : $"Reroll: {_currentRerollCount}";
-        }
-
-        if (!_isFirstRoll && _currentRerollCount < 0)
-        {
-            rollBtn.interactable = false;
-        }
-        else
-        {
-            rollBtn.interactable = true;
-        }
-    }
-
     public void ResetForNewRound()
     {
-        if(rollBtn != null)
-        {
-            rollBtn.interactable = true;
-        }
-
-        _currentRerollCount = maxRerollCount;
-        _isFirstRoll = true;
-        UpdateGameUI();
+        _isRolling = false;
     }
 }
