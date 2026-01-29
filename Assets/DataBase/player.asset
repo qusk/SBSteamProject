@@ -13,12 +13,15 @@ MonoBehaviour:
   m_Name: player
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSo
   itemSo1:
-  - {fileID: 11400000, guid: 11379efbc7476924690ac89fc5be07b6, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   heart: 0
-  gold: 15
+  gold: 32
   roundScore: 1234
   currentRound: 3
+  bestRound: 7
+  bestScore: 1231

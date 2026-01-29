@@ -6,7 +6,6 @@ public class DescManager : MonoBehaviour
     public static DescManager instance;
 
     [Header("°ñµå")]
-    public int Gold;
     public TextMeshProUGUI textGold;
 
     [Header("¶ó¿îµå")]
@@ -53,13 +52,13 @@ public class DescManager : MonoBehaviour
 
     public void BuyGold(int gold)
     {
-        Gold -= gold;
-        textGold.text = "°ñµå: " + Gold.ToString();
+        Player.instance.player.gold -= gold;
+        textGold.text = "°ñµå: " + Player.instance.player.gold.ToString();
     }
 
     public void SellGold(int gold)
     {
-        Gold += gold;
-        textGold.text = "°ñµå: " + Gold.ToString();
+        Player.instance.player.gold += gold;
+        textGold.text = "°ñµå: " + Player.instance.player.gold.ToString();
     }
 }

@@ -94,7 +94,7 @@ public class BuyItem : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, I
         if (!bought)
         {
             if(transform.parent.CompareTag("BuySlot") || transform.parent == canvas || 
-                DescManager.instance.Gold - itemInfo.Gold < 0)
+                Player.instance.player.gold - itemInfo.Gold < 0)
             {
                 transform.SetParent(previousParent);
                 rect.position = previousParent.GetComponent<RectTransform>().position;
