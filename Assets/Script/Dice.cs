@@ -7,11 +7,36 @@ public class Dice : MonoBehaviour
 {
     public Image diceImage;
 
-    public Sprite[] diceSprite;
-
     [Header("사운드 및 이펙트")]
-    public GameObject effectPreb;
+    public GameObject effectPrefab;
     public AudioClip rollSound;
+
+    private DiceAbility _myAbility;
+    private DiceSkin _defaultSkin;
+
+    public void SetAbility(DiceAbility ability)
+    {
+        this._myAbility = ability;
+        // 다이스 기본 세팅
+        UpdateDiceImage(1);
+    }
+
+    public void SetDefaultSkin(DiceSkin skin)
+    {
+        _defaultSkin = skin;
+    }
+
+    public void UpdateDiceImage(int value)
+    {
+        if(_myAbility != null && _myAbility.skin != null)
+        {
+            diceImage.sprite = _myAbility.skin.GetSprite(value);
+        }
+        else if(_defaultSkin != null)
+        {
+            diceImage.sprite = _defaultSkin.GetSprite(value);
+        }
+    }
 
     public IEnumerator RollDice(int resultIndex, float duration)
     {
@@ -30,12 +55,21 @@ public class Dice : MonoBehaviour
 
         while (timer < duration)
         {
-            diceImage.sprite = diceSprite[Random.Range(0, 6)];
+            if(_myAbility != null && _myAbility.skin != null)
+            {
+                diceImage.sprite = _myAbility.skin.GetSprite(Random.Range(1, 7));
+            }
+            else if(_defaultSkin != null)
+            {
+                diceImage.sprite = _defaultSkin.GetSprite(Random.Range(1, 7));
+            }
+
             yield return new WaitForSeconds(switchInterval);
             timer += switchInterval;
         }
+
         // 결과 확정
-        diceImage.sprite = diceSprite[resultIndex - 1];
+        UpdateDiceImage(resultIndex);
         // 사운드 & 회전 복구
         transform.DOScale(Vector3.one, 0.2f).SetEase(Ease.OutBounce);
         transform.rotation = Quaternion.identity;
