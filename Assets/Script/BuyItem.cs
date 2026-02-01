@@ -16,6 +16,8 @@ public class BuyItem : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, I
     CanvasGroup canvasGroup;
     public bool inPotiner = false;
 
+    DiceAbility DiceInfo;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
@@ -29,7 +31,7 @@ public class BuyItem : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, I
 
     void Start()
     {
-        Desc.text = itemInfo.itemDesc;
+        Desc.text = DiceInfo.Desc;
     }
 
     public void UpdateInfo(ItemSo item)
@@ -37,6 +39,13 @@ public class BuyItem : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, I
         itemInfo = item;
         img.sprite = item.itemIcon;
         Desc.text = itemInfo.itemDesc;
+    }
+
+    public void UpdateDiceInfo(DiceAbility ability)
+    {
+        DiceInfo = ability;
+        img.sprite = ability.skin.GetSprite(1);
+        Desc.text = ability.Desc;
     }
 
     public void OnPointerEnter()
@@ -67,8 +76,8 @@ public class BuyItem : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, I
         }
         else if (eventData.button == PointerEventData.InputButton.Right && bought)
         {
-            DescManager.instance.SellGold(itemInfo.Gold - 1);
-            Player.instance.PullPlayerDice(itemInfo);
+            DescManager.instance.SellGold(DiceInfo.gold - 1);
+            Player.instance.PullPlayerDices(DiceInfo);
             Destroy(gameObject);
         }
     }
@@ -93,8 +102,8 @@ public class BuyItem : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, I
     {
         if (!bought)
         {
-            if(transform.parent.CompareTag("BuySlot") || transform.parent == canvas || 
-                Player.instance.player.gold - itemInfo.Gold < 0)
+            if(transform.parent.CompareTag("BuySlot") || transform.parent == canvas ||
+                Player.instance.player.gold - DiceInfo.gold < 0)
             {
                 transform.SetParent(previousParent);
                 rect.position = previousParent.GetComponent<RectTransform>().position;
@@ -102,8 +111,8 @@ public class BuyItem : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, I
             else
             {
                 bought = !bought;
-                DescManager.instance.BuyGold(itemInfo.Gold);
-                Player.instance.PushPlayerDice(itemInfo);
+                DescManager.instance.BuyGold(DiceInfo.gold);
+                Player.instance.PushPlayerDices(DiceInfo);
             }
         }
         else

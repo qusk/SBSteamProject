@@ -22,46 +22,46 @@ public class Player : MonoBehaviour
     {
 
 #if UNITY_EDITOR
-        Array.Clear(player.itemSo1, 0, player.itemSo1.Length);
+        Array.Clear(player.DiceSo, 0, player.DiceSo.Length);
 #endif
 
 
-        if(DescManager.instance != null)
+        if (DescManager.instance != null)
             DescManager.instance.UpdateInfo(player);
     }
 
-    public void PushPlayerDice(ItemSo Dice)
+    public void PushPlayerDices(DiceAbility Dice)
     {
-        for (int i = 0; i < player.itemSo1.Length; i++)
+        for (int i = 0; i < player.DiceSo.Length; i++)
         {
-            if(player.itemSo1[i] == null)
+            if (player.DiceSo[i] == null)
             {
-                player.itemSo1[i] = Dice;
-                return;
-            }
-                
-        }
-        
-    }
-
-    public void PullPlayerDice(ItemSo Dice)
-    {
-        for (int i = 0; i < player.itemSo1.Length; i++)
-        {
-            if (player.itemSo1[i] == Dice)
-            {
-                player.itemSo1[i] = null;
+                player.DiceSo[i] = Dice;
                 return;
             }
 
         }
+
     }
 
-    public void ResetDices(ItemSo[] Dices)
+    public void PullPlayerDices(DiceAbility Dice)
+    {
+        for (int i = 0; i < player.DiceSo.Length; i++)
+        {
+            if (player.DiceSo[i] == Dice)
+            {
+                player.DiceSo[i] = null;
+                return;
+            }
+
+        }
+    }
+
+    public void ResetDices(DiceAbility[] Dices)
     {
         for(int i = 0;i < Dices.Length; i++)
         {
-            player.itemSo1[i] = Dices[i];
+            player.DiceSo[i] = Dices[i];
         }
     }
 

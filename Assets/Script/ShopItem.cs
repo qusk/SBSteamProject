@@ -9,7 +9,8 @@ public class ShopItem : MonoBehaviour
     public int total = 0;
     
     [Header("주사위 데이터 베이스")]
-    public ItemSo[] itemDB;
+    //public ItemSo[] itemDB;
+    public DiceAbility[] DiceDB;
     
     [Header("구매 주사위")]
     public BuyItem[] buyDice;
@@ -23,9 +24,9 @@ public class ShopItem : MonoBehaviour
 
     void Start()
     {
-        for(int i = 0; i < itemDB.Length; i++)
+        for(int i = 0;i<DiceDB.Length; i++)
         {
-            total += itemDB[i].weight;
+            total += DiceDB[i].weight;
         }
     }
 
@@ -36,10 +37,9 @@ public class ShopItem : MonoBehaviour
 
         selectNum = Mathf.RoundToInt(total * Random.Range(0.0f,1.0f));
 
-        for(int i = 0; i < itemDB.Length; i++)
+        for(int i = 0; i < DiceDB.Length; i++)
         {
-            weight += itemDB[i].weight;
-            Debug.Log(selectNum + ":" +weight);
+            weight += DiceDB[i].weight;
             if(selectNum <= weight)
             {
                 return i;
@@ -67,11 +67,12 @@ public class ShopItem : MonoBehaviour
 
 
             randomIndex = RandomItem();
-            if(usedIndex.Count < itemDB.Length)
+            
+            if(usedIndex.Count < DiceDB.Length)
             {
                 if (!usedIndex.Contains(randomIndex))
                 {
-                    buyDice[i].UpdateInfo(itemDB[randomIndex]);
+                    buyDice[i].UpdateDiceInfo(DiceDB[randomIndex]);
                     usedIndex.Add(randomIndex);
                 }
                 else
@@ -79,9 +80,9 @@ public class ShopItem : MonoBehaviour
                     i--;
                 }
             }
-            else if(usedIndex.Count >= itemDB.Length)
+            else if(usedIndex.Count >= DiceDB.Length)
             {
-                buyDice[i].UpdateInfo(itemDB[randomIndex]);
+                buyDice[i].UpdateDiceInfo(DiceDB[randomIndex]);
             }
 
             

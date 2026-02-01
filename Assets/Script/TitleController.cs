@@ -1,4 +1,6 @@
+using Unity.VectorGraphics;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TitleController : MonoBehaviour
 {
@@ -35,7 +37,7 @@ public class TitleController : MonoBehaviour
 
     public void OnClickStart()
     {
-        Debug.Log("로비 씬으로 이동~");
+        SceneManager.LoadScene("HomeScreen");
     }
     
     public void OnClickExit()

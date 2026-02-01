@@ -4,7 +4,8 @@ using UnityEngine;
 public class PlayerSo : ScriptableObject
 {
     [Header("¿Œ ∞‘¿”")]
-    public ItemSo[] itemSo1; 
+    //public ItemSo[] itemSo1;
+    public DiceAbility[] DiceSo;
     public int heart;
     public int gold;
     public int roundScore;
