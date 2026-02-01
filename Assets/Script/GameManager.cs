@@ -2,6 +2,7 @@ using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static UnityEngine.Rendering.DebugUI;
 
 public class GameManager : MonoBehaviour
@@ -30,6 +31,7 @@ public class GameManager : MonoBehaviour
     {
         if(instance == null)
         {
+            //DontDestroyOnLoad(gameObject);
             instance = this;
         }
         else
@@ -56,6 +58,8 @@ public class GameManager : MonoBehaviour
 
     public void StartRound()
     {
+        if (UiController.instance == null) return;
+
         _isFirstRoll = true;
         _currentRerollCount = maxRerollCount;
         currentScore = 0;
@@ -170,6 +174,26 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("다음 라운드로 이동~");
         // 라운드 이동 처리 필요
+    }
+
+    public void LoadHomeScreen()
+    {
+        SceneManager.LoadScene("HomeScreen");
+    }
+
+    public void LoadShopScreen()
+    {
+        SceneManager.LoadScene("Shop");
+    }
+
+    public void LoadGameScreen()
+    {
+        SceneManager.LoadScene("GameBoard");
+    }
+
+    public void LoadSelectScreen()
+    {
+        SceneManager.LoadScene("DiceSelect");
     }
 }
     

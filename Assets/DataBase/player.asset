@@ -19,8 +19,15 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  DiceSo:
+  - {fileID: 11400000, guid: 4b64720d23fc19843a6f6e7167793ba4, type: 2}
+  - {fileID: 11400000, guid: 1825aa418ee355c4e89dc42f257584d7, type: 2}
+  - {fileID: 11400000, guid: 1825aa418ee355c4e89dc42f257584d7, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   heart: 0
-  gold: 32
+  gold: 24
   roundScore: 1234
   currentRound: 3
   bestRound: 7

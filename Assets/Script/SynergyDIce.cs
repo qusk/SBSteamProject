@@ -14,12 +14,12 @@ public class SynergyDIce : MonoBehaviour, IPointerClickHandler
             if (gameObject.CompareTag("Scroll"))
             {
                 //Player.instance.PushPlayerDice(Dice);
-                HomeScreenUI.instance.PushSynergyImage(Dice);
+                //HomeScreenUI.instance.PushSynergyImage(Dice);
             }
             else if (gameObject.CompareTag("Synergy"))
             {
                 //Player.instance.PullPlayerDice(Dice);
-                HomeScreenUI.instance.PopSynergyImage(Dice);
+                //HomeScreenUI.instance.PopSynergyImage(Dice);
             }
         }
     }

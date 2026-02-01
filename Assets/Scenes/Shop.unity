@@ -2049,6 +2049,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7b7b7197fa6c8cc43978464e89b48c6c, type: 2}
   - {fileID: 11400000, guid: c8c24d7d220c6b243a2181d30d40d41d, type: 2}
   - {fileID: 11400000, guid: 4b9461fdc4cf9c843ab27199e4748074, type: 2}
+  DiceDB:
+  - {fileID: 11400000, guid: 1825aa418ee355c4e89dc42f257584d7, type: 2}
+  - {fileID: 11400000, guid: 4b64720d23fc19843a6f6e7167793ba4, type: 2}
   buyDice:
   - {fileID: 0}
   - {fileID: 0}
@@ -5186,7 +5189,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1454814486}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1626927278}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: LoadGameScreen
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1454814486
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6150,6 +6165,58 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &1626927277
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1626927279}
+  - component: {fileID: 1626927278}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1626927278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1626927277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bad9215d96cbc5541999f0b3442e3c58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  currentRound: 1
+  targetScore: 20
+  maxLives: 3
+  currentLives: 0
+  maxRerollCount: 1
+  currentScore: 0
+  bestScore: 0
+  diceManager: {fileID: 0}
+--- !u!4 &1626927279
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1626927277}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1690221380
 GameObject:
   m_ObjectHideFlags: 0
@@ -7818,3 +7885,4 @@ SceneRoots:
   - {fileID: 655435760}
   - {fileID: 396462281}
   - {fileID: 461141163}
+  - {fileID: 1626927279}

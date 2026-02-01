@@ -7,6 +7,10 @@ using UnityEngine;
 public class DiceAbility : ScriptableObject
 {
     public string abilityName;
+    public int weight;
+    public int gold;
+    [TextArea]
+    public string Desc;
 
     [Header("주사위 스킨")]
     public DiceSkin skin; // ★ 이 부분이 있어야 UI가 작동합니다!
