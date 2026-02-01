@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class MainOption : MonoBehaviour
 {
@@ -10,6 +12,18 @@ public class MainOption : MonoBehaviour
     public GameObject bgmVolumeMuteImage;
     public GameObject sfxVolumeImage;
     public GameObject sfxVolumeMuteImage;
+
+    [Header("환경 설정 UI")]
+    public TMP_Dropdown IsFullscreen;
+    public TMP_Dropdown Resolution;
+    public Slider Music;
+    public Slider Sfx;
+
+    private void Start()
+    {
+        SettingsManager.instance.LoadSettings();
+        UpdateUI();
+    }
 
     public void OpenUI()
     {
@@ -28,16 +42,31 @@ public class MainOption : MonoBehaviour
         }
     }
 
+    public void ChangeConfirm()
+    {
+        SettingsManager.instance.SaveSettings();
+    }
+
+    public void UpdateUI()
+    {
+        IsFullscreen.value = (PlayerPrefs.GetInt("IsFullscreen") == 1 ? 0 : 1);
+        Resolution.value = PlayerPrefs.GetInt("ResolutionIndex");
+        Music.value = PlayerPrefs.GetFloat("MusicVolume");
+        Sfx.value = PlayerPrefs.GetFloat("SfxVolume");
+    }
+
     public void ChangeScreenMode(int index) // 화면 모드 전환
     {
         switch (index)
         {
             case 0:
                 Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
+                SettingsManager.instance.IsFullScreen = true;
                 Debug.Log("전체화면");
                 break;
             case 1:
                 Screen.fullScreenMode = FullScreenMode.Windowed;
+                SettingsManager.instance.IsFullScreen = false;
                 Debug.Log("창모드");
                 break;
             default:
@@ -52,12 +81,15 @@ public class MainOption : MonoBehaviour
         {
             case 0:
                 Screen.SetResolution(1920, 1080, Screen.fullScreenMode);
+                SettingsManager.instance.ResolutionIndex = index;
                 break;
             case 1:
                 Screen.SetResolution(1600, 900, Screen.fullScreenMode);
+                SettingsManager.instance.ResolutionIndex = index;
                 break;
             case 2:
                 Screen.SetResolution(1280, 720, Screen.fullScreenMode);
+                SettingsManager.instance.ResolutionIndex = index;
                 break;
             default:
                 break;
@@ -66,17 +98,19 @@ public class MainOption : MonoBehaviour
 
     public void SetBgmVolume(float volume) // 배경음 조절
     {
-        SoundManager.instance.SetBgmVolume(volume);
+        AudioManager.instance.SetBgmVolume(volume);
+        SettingsManager.instance.MusicVolume = volume;
     }
 
     public void SetSfxVolume(float volume) // 효과음 조절
     {
-        SoundManager.instance.SetSfxVolume(volume);
+        AudioManager.instance.SetSfxVolume(volume);
+        SettingsManager.instance.SfxVolume = volume;
     }
 
     public void FBgmButton()
     {
-        if (!SoundManager.instance.bgmVolumeMute) // 음소거 상태 아닐때
+        if (!AudioManager.instance.bgmVolumeMute) // 음소거 상태 아닐때
         {
             //bgmVolumeImage.SetActive(false);
             //bgmVolumeMuteImage.SetActive(true);
@@ -86,13 +120,13 @@ public class MainOption : MonoBehaviour
             //bgmVolumeImage.SetActive(true);
             //bgmVolumeMuteImage.SetActive(false);
         }
-        SoundManager.instance.bgmVolumeMute = !SoundManager.instance.bgmVolumeMute;
-        SetBgmVolume(SoundManager.instance.bgmVolume);
+        AudioManager.instance.bgmVolumeMute = !AudioManager.instance.bgmVolumeMute;
+        SetBgmVolume(AudioManager.instance.bgmVolume);
     }
 
     public void FsfxButton()
     {
-        if (!SoundManager.instance.sfxVolumeMute) // 음소거 상태 아닐때
+        if (!AudioManager.instance.sfxVolumeMute) // 음소거 상태 아닐때
         {
             //sfxVolumeImage.SetActive(false);
             //sfxVolumeMuteImage.SetActive(true);
@@ -102,7 +136,20 @@ public class MainOption : MonoBehaviour
             //sfxVolumeImage.SetActive(true);
             //sfxVolumeMuteImage.SetActive(false);
         }
-        SoundManager.instance.sfxVolumeMute = !SoundManager.instance.sfxVolumeMute;
-        SetSfxVolume(SoundManager.instance.sfxVolume);
+        AudioManager.instance.sfxVolumeMute = !AudioManager.instance.sfxVolumeMute;
+        SetSfxVolume(AudioManager.instance.sfxVolume);
+    }
+
+    public void SaveSet()
+    {
+        SettingsManager.instance.SaveSettings();
+    }
+
+    public void LoadSet()
+    {
+        SettingsManager.instance.LoadSettings();
+        ChangeResolution(SettingsManager.instance.ResolutionIndex);
+        ChangeScreenMode(SettingsManager.instance.IsFullScreen ? 0 : 1);
+        UpdateUI();
     }
 }
