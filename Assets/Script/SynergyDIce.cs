@@ -1,11 +1,11 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class SynergyDIce : MonoBehaviour, IPointerClickHandler
+public class SynergyDice : MonoBehaviour, IPointerClickHandler
 {
-    public ItemSo Dice;
-
+    public DiceAbility Dice;
 
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -13,15 +13,23 @@ public class SynergyDIce : MonoBehaviour, IPointerClickHandler
         {
             if (gameObject.CompareTag("Scroll"))
             {
-                //Player.instance.PushPlayerDice(Dice);
-                //HomeScreenUI.instance.PushSynergyImage(Dice);
+                Player.instance.PushPlayerDices(Dice);
+                DiceSelectManager.instance.PushSynergyDice(Dice);
             }
             else if (gameObject.CompareTag("Synergy"))
             {
-                //Player.instance.PullPlayerDice(Dice);
-                //HomeScreenUI.instance.PopSynergyImage(Dice);
+                Player.instance.PullPlayerDices(Dice);
+                DiceSelectManager.instance.PopSynergyDice(Dice);
             }
         }
     }
+
+    public void UpdateDiceInfo(DiceAbility Dice)
+    {
+        this.Dice = Dice;
+        gameObject.GetComponent<Image>().sprite = Dice.skin.sprites[0];
+        
+    }
+    
 
 }

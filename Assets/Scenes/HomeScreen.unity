@@ -2907,19 +2907,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9e71806dac3ab3488385d8890e4a266, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HomeScreenUI
-  Dices:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  clip: {fileID: 8300000, guid: 152a6451e6bc8ec42acd57a0552c1d75, type: 3}
   bestRoundtext: {fileID: 2109896434}
   bestScoretext: {fileID: 1503708285}
-  synergyGoldText: {fileID: 0}
-  synergyButton: {fileID: 0}
-  synergy: {fileID: 0}
-  synergyGold: 0
 --- !u!4 &1091399290
 Transform:
   m_ObjectHideFlags: 0
@@ -7075,7 +7065,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e316dee11442efc47bcf508831957889, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
-  bgmClip: {fileID: 8300000, guid: f5e4c0f016ee61a4ea7b59d2fe3f1c75, type: 3}
+  bgmClip:
+  - {fileID: 8300000, guid: 08f40560f4d009c4ba7467490cb1afbc, type: 3}
+  - {fileID: 8300000, guid: 152a6451e6bc8ec42acd57a0552c1d75, type: 3}
+  - {fileID: 8300000, guid: f5e4c0f016ee61a4ea7b59d2fe3f1c75, type: 3}
   bgmVolume: 0.5
   bgmVolumeMute: 0
   sfxClips:

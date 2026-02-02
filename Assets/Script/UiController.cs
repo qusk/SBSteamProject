@@ -48,6 +48,11 @@ public class UiController : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        AudioManager.instance.PlayBgm(AudioManager.Bgm.Battle, true);
+    }
+
     public void UpdateInGameInfo(int round, int lives, int currentScore, int targetScore)
     {
         if(roundInfoText)
@@ -174,7 +179,7 @@ public class UiController : MonoBehaviour
 
     public void GotoLobby()
     {
-        Debug.Log("로비 씬으로 이동~");
+        GameManager.instance.LoadHomeScreen();
     }
 
 }

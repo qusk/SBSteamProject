@@ -1,3 +1,4 @@
+using System;
 using Unity.VectorGraphics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -6,17 +7,16 @@ public class TitleController : MonoBehaviour
 {
     public TitleUiManager uiManager;
 
-    [Header("타이틀 전용 사운드")]
-    public AudioClip titleBgm;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         uiManager.InitUI();
-        
-        if(SoundManager.instance != null)
+#if UNITY_EDITOR
+        Array.Clear(Player.instance.player.DiceSo,0,Player.instance.player.DiceSo.Length);
+#endif
+
+        if (AudioManager.instance != null)
         {
-            SoundManager.instance.PlayBgm(titleBgm);
+            AudioManager.instance.PlayBgm(AudioManager.Bgm.title,true);
         }
     }
 

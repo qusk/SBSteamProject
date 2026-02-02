@@ -20,12 +20,6 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-
-#if UNITY_EDITOR
-        Array.Clear(player.DiceSo, 0, player.DiceSo.Length);
-#endif
-
-
         if (DescManager.instance != null)
             DescManager.instance.UpdateInfo(player);
     }

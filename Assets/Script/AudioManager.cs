@@ -7,11 +7,14 @@ public class AudioManager : MonoBehaviour
     public static AudioManager instance;
 
     [Header("#BGM")]
-    public AudioClip bgmClip;
+    public AudioClip[] bgmClip;
     public float bgmVolume;
     public bool bgmVolumeMute;
     AudioSource bgmPlayer;
     AudioHighPassFilter bgmEffect;
+    public Bgm bgm;
+
+    public enum Bgm { title, Home, Shop, Battle, None}
 
     [Header("#SFX")]
     public AudioClip[] sfxClips;
@@ -21,7 +24,7 @@ public class AudioManager : MonoBehaviour
     AudioSource[] sfxPlayer;
     int channelIndex;
 
-    public enum Sfx { Dead, Hit, LevelUp = 3, Lose, Melee, Range = 7, Select, Win }
+    public enum Sfx { Click }
 
     private void Awake()
     {
@@ -38,11 +41,6 @@ public class AudioManager : MonoBehaviour
 
     }
 
-    private void Start()
-    {
-        PlayBgm(true);
-    }
-
     void Init()
     {
         // 배경음 플레이어 초기화
@@ -50,8 +48,8 @@ public class AudioManager : MonoBehaviour
         bgmObject.transform.parent = transform;
         bgmPlayer = bgmObject.AddComponent<AudioSource>();
         bgmPlayer.playOnAwake = false;
-        bgmPlayer.volume = bgmVolume;
-        bgmPlayer.clip = bgmClip;
+        //bgmPlayer.volume = bgmVolume;
+        bgmPlayer.clip = bgmClip[0];
         bgmPlayer.loop = true;
         bgmEffect = Camera.main.GetComponent<AudioHighPassFilter>();
 
@@ -65,14 +63,19 @@ public class AudioManager : MonoBehaviour
             sfxPlayer[index] = sfxObject.AddComponent<AudioSource>();
             sfxPlayer[index].playOnAwake = false;
             sfxPlayer[index].bypassListenerEffects = true;
-            sfxPlayer[index].volume = sfxVolume;
+            //sfxPlayer[index].volume = sfxVolume;
         }
     }
 
-    public void PlayBgm(bool isPlay)
+    public void PlayBgm(Bgm bgm, bool isPlay)
     {
+        if (this.bgm == bgm)
+            return;
+
         if (isPlay)
         {
+            this.bgm = bgm;
+            bgmPlayer.clip = bgmClip[(int)bgm];
             bgmPlayer.Play();
         }
         else
@@ -118,11 +121,5 @@ public class AudioManager : MonoBehaviour
         {
             sfxPlayer[i].volume = volume;
         }
-    }
-
-
-    public void testSfx()
-    {
-        PlaySfx(Sfx.Dead);
     }
 }
