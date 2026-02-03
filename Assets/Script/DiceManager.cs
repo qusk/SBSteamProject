@@ -12,26 +12,21 @@ public class DiceManager : MonoBehaviour
 {
 
     [Header("UI 연결")]
-    //public GameObject rollPanel;
-    //public CanvasGroup panelCanvasGroup;
     public RectTransform rollArea;
 
     [Header("주사위 오브젝트")]
     public Dice[] panelDiceScript;
-    public Image[] boardResultImage;
 
-    [Header("주사위 능력")]
-    public List<DiceAbility> diceAbilities;
+    [Header("주사위 데이터")]
+    public List<DiceData> diceDatas;
 
 
     [Header("기본 설정")]
-    public DiceAbility defaultDiceAbilit;
-    public DiceSkin defaultDiceSkin;
-    //public float delayNextDice = 1.5f;
+    public DiceData defaultDiceData;
+   
     public bool isRolling => _isRolling;
 
     private bool _isRolling = false;
-    private int[] _resultStore = new int[6];
     // 원래 자리 기억용
     private Vector3[] _originalPosition;
     private float padding = 100.0f;
@@ -43,30 +38,26 @@ public class DiceManager : MonoBehaviour
             GameManager.instance.diceManager = this;
         }
 
-        SetupDiceAbilities();
+        SetupDiceBoard();
 
         _originalPosition = new Vector3[panelDiceScript.Length];
         for(int i = 0; i < panelDiceScript.Length; i++)
         {
             _originalPosition[i] = panelDiceScript[i].transform.position;
-            panelDiceScript[i].SetAbility(panelDiceScript[i].MyAbility);
         }
     }
 
-    public void SetupDiceAbilities()
+    public void SetupDiceBoard()
     {
         for(int i = 0; i < panelDiceScript.Length; i++)
         {
-            panelDiceScript[i].SetDefaultSkin(defaultDiceSkin);
+            DiceData dataToUse = defaultDiceData;
+            if(i < diceDatas.Count && diceDatas[i] != null)
+            {
+                dataToUse = diceDatas[i];
+            }
 
-            if(i < diceAbilities.Count && diceAbilities[i] != null) 
-            {
-                panelDiceScript[i].SetAbility(diceAbilities[i]);
-            }
-            else
-            {
-                panelDiceScript[i].SetAbility(defaultDiceAbilit);
-            }
+            panelDiceScript[i].Initialize(i, dataToUse);
         }
     }
 
@@ -99,7 +90,9 @@ public class DiceManager : MonoBehaviour
 
             // 눈금 값 결정
             int randomResult = Random.Range(1, 7);
-            _resultStore[i] = randomResult;
+
+            // dice 객체에 데이터 입력
+            currentDice.SetResult(randomResult);
 
             int boundCount = Random.Range(2, 5);
 
@@ -151,13 +144,13 @@ public class DiceManager : MonoBehaviour
 
 
         // 점수 계산
-        List<int> rollResults = new List<int>(_resultStore);
+        
       
-        int finalScore = ScoreManager.instance.CalculateScore(rollResults, diceAbilities);
+        int finalScore = ScoreManager.instance.CalculateScore(panelDiceScript);
 
         if(GameManager.instance != null)
         {
-            GameManager.instance.ProcessRollResult(finalScore, diceAbilities, rollResults);
+            GameManager.instance.ProcessRollResult(finalScore);
         }
 
         _isRolling = false;

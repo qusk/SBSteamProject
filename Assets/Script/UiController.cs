@@ -111,7 +111,7 @@ public class UiController : MonoBehaviour
         }
     }
 
-    public void ShowGameOverPanel(int round, int bestScore, List<DiceAbility> abilites, List<int> values)
+    public void ShowGameOverPanel(int round, int bestScore, List<DiceData> datas, List<int> values)
     {
         if (gameOverPanel != null)
         {
@@ -136,17 +136,17 @@ public class UiController : MonoBehaviour
                 {
                     lastDice[i].gameObject.SetActive(true);
 
-                    DiceAbility ability = null;
+                    DiceData data = null;
                     
-                    if(abilites != null && i < abilites.Count)
+                    if(datas != null && i < datas.Count)
                     {
-                        ability = abilites[i];
+                        data = datas[i];
                     }
                     int index = values[i];
 
-                    if(ability != null && ability.skin != null)
+                    if(data != null && data.skin != null)
                     {
-                        lastDice[i].sprite = ability.skin.GetSprite(index);
+                        lastDice[i].sprite = data.skin.GetSprite(index);
                     }
                     else if(defaultDiceSkin != null)
                     {

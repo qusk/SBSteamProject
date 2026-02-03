@@ -16,7 +16,7 @@ public class BuyItem : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, I
     CanvasGroup canvasGroup;
     public bool inPotiner = false;
 
-    DiceAbility DiceInfo;
+    DiceData DiceInfo;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
@@ -41,11 +41,11 @@ public class BuyItem : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, I
         Desc.text = itemInfo.itemDesc;
     }
 
-    public void UpdateDiceInfo(DiceAbility ability)
+    public void UpdateDiceInfo(DiceData data)
     {
-        DiceInfo = ability;
-        img.sprite = ability.skin.GetSprite(1);
-        Desc.text = ability.Desc;
+        DiceInfo = data;
+        img.sprite = data.skin.GetSprite(1);
+        Desc.text = data.Desc;
     }
 
     public void OnPointerEnter()

@@ -5,7 +5,7 @@ public class PlayerSo : ScriptableObject
 {
     [Header("¿Œ ∞‘¿”")]
     //public ItemSo[] itemSo1;
-    public DiceAbility[] DiceSo;
+    public DiceData[] DiceSo;
     public int heart;
     public int gold;
     public int roundScore;

@@ -3,8 +3,8 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "DiceAbility", menuName = "Scriptable Objects/DiceAbility")]
-public class DiceAbility : ScriptableObject
+[CreateAssetMenu(fileName = "DiceData", menuName = "Scriptable Objects/DiceData")]
+public class DiceData : ScriptableObject
 {
     public string abilityName;
     public int weight;
@@ -13,7 +13,7 @@ public class DiceAbility : ScriptableObject
     public string Desc;
 
     [Header("주사위 스킨")]
-    public DiceSkin skin; // ★ 이 부분이 있어야 UI가 작동합니다!
+    public DiceSkin skin; 
 
     // myState: 내 주사위 상태, allDice: 모든 주사위 상태 리스트
     public virtual void OnRuleEffect(DiceState myState, List<DiceState> allDice) { }

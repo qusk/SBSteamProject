@@ -24,8 +24,8 @@ public class GameManager : MonoBehaviour
 
     public DiceManager diceManager;
 
-    private List<DiceAbility> _lastDiceAbility;
-    private List<int> _lastValue;
+    private List<DiceData> _lastDiceDatas;
+    private List<int> _lastValues;
 
     private void Awake()
     {
@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviour
 
         if (diceManager != null)
         {
-            diceManager.ResetForNewRound();
+            diceManager.SetupDiceBoard();
         }
 
     }
@@ -111,11 +111,24 @@ public class GameManager : MonoBehaviour
         CompleteRound();    
     }
 
-    public void ProcessRollResult(int finalScore, List<DiceAbility> abilities, List<int> values)
+    public void ProcessRollResult(int finalScore)
     {
         currentScore = finalScore;
-        _lastDiceAbility = abilities;
-        _lastValue = values;
+
+        if (diceManager != null)
+        {
+            _lastDiceDatas = new List<DiceData>();
+            _lastValues = new List<int>();
+
+            foreach(var dice in diceManager.panelDiceScript)
+            {
+                if(dice != null && dice.MyState != null)
+                {
+                    _lastDiceDatas.Add(dice.MyState.diceData);
+                    _lastValues.Add(dice.MyState.originalValue);
+                }
+            }
+        }
 
         // 최고 점수 갱신
         if(currentScore > bestScore)
@@ -127,7 +140,7 @@ public class GameManager : MonoBehaviour
 
         if (_currentRerollCount <= 0)
         {
-            Debug.Log("리롤 횟수 소진, 자동 점수 확정 결과 패널 등장");
+            Debug.Log("리롤 횟수 소진, 자동 점수 확정! 결과 패널 등장");
             CompleteRound();
         }
         else
@@ -158,14 +171,14 @@ public class GameManager : MonoBehaviour
             {
                 // 게임 오버시 모든 눈금을 1로 채워서 보여주기 위해 사용
                 List<int> fakeValue = new List<int>();
-                if(_lastValue != null)
+                if(_lastValues != null)
                 {
-                    for(int i = 0; i < _lastValue.Count; i++)
+                    for(int i = 0; i < _lastValues.Count; i++)
                     {
                         fakeValue.Add(1);
                     }
                 }
-                UiController.instance.ShowGameOverPanel(currentRound, bestScore, _lastDiceAbility, fakeValue);
+                UiController.instance.ShowGameOverPanel(currentRound, bestScore, _lastDiceDatas, fakeValue);
             }
         }
     }
