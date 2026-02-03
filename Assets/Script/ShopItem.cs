@@ -10,7 +10,7 @@ public class ShopItem : MonoBehaviour
     
     [Header("주사위 데이터 베이스")]
     //public ItemSo[] itemDB;
-    public DiceAbility[] DiceDB;
+    public DiceData[] DiceDB;
     
     [Header("구매 주사위")]
     public BuyItem[] buyDice;

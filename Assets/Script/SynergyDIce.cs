@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public class SynergyDice : MonoBehaviour, IPointerClickHandler
 {
-    public DiceAbility Dice;
+    public DiceData Dice;
 
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -24,7 +24,7 @@ public class SynergyDice : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    public void UpdateDiceInfo(DiceAbility Dice)
+    public void UpdateDiceInfo(DiceData Dice)
     {
         this.Dice = Dice;
         gameObject.GetComponent<Image>().sprite = Dice.skin.sprites[0];

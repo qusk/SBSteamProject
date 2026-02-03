@@ -30,7 +30,7 @@ public class DiceSelectManager : MonoBehaviour
         }
     }
 
-    public void PushSynergyDice(DiceAbility Dice)
+    public void PushSynergyDice(DiceData Dice)
     {
         for (int i = 0; i < Synergy.transform.childCount; i++)
         {
@@ -44,7 +44,7 @@ public class DiceSelectManager : MonoBehaviour
         }
     }
 
-    public void PopSynergyDice(DiceAbility Dice)
+    public void PopSynergyDice(DiceData Dice)
     {
         for (int i = 0; i < Synergy.transform.childCount; i++)
         {

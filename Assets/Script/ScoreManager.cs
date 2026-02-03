@@ -10,67 +10,60 @@ public class ScoreManager : MonoBehaviour
         if (instance == null) instance = this;
     }
 
-    public int CalculateScore(List<int> rollResult, List<DiceAbility> abilities)
+    public int CalculateScore(Dice[] uiDice)
     {
-        List<DiceState> diceStates = new List<DiceState>();
-        for (int i = 0; i < rollResult.Count; i++)
+        List<DiceState> simulationStates = new List<DiceState>();
+        for(int i = 0; i < uiDice.Length; i++)
         {
-            diceStates.Add(new DiceState(i, rollResult[i]));
-        }
-
-        if (abilities == null || abilities.Count == 0)
-        {
-            int basicScore = 0;
-            foreach (var state in diceStates)
+            if (uiDice[i] != null)
             {
-                basicScore += state.scoreValue;
-                
+                DiceData data = uiDice[i].MyState.diceData;
+                int originalValue = uiDice[i].MyState.originalValue;
+                simulationStates.Add(new DiceState(data, i, originalValue));
             }
-            return basicScore;
         }
-
 
         // 점수 로직
         // 1. 룰상 효과
-        for (int i = 0; i < diceStates.Count; i++)
+        foreach(var state in simulationStates)
         {
-            if (i < abilities.Count && abilities[i] != null)
+            if(state != null)
             {
-                abilities[i].OnRuleEffect(diceStates[i], diceStates);
+                state.diceData.OnRuleEffect(state, simulationStates);
             }
         }
 
         // 2. 굴림 효과
-        for (int i = 0; i < diceStates.Count; i++)
+        foreach (var state in simulationStates)
         {
-            if (i < abilities.Count && abilities[i] != null)
+            if (state != null)
             {
-                abilities[i].OnRollEffect(diceStates[i], diceStates);
+                state.diceData.OnRollEffect(state, simulationStates);
             }
         }
 
         // 3. 점수 계산 전 효과
-        for (int i = 0; i < diceStates.Count; i++)
+        foreach (var state in simulationStates)
         {
-            if(i < abilities.Count && abilities[i] != null)
+            if (state != null)
             {
-                abilities[i].BeforeCalculateEffect(diceStates[i], diceStates);
+                state.diceData.BeforeCalculateEffect(state, simulationStates);
             }
         }
 
         // 4. 점수 계산
         int totalScore = 0;
-        foreach(var state in diceStates)
+        foreach(var state in simulationStates)
         {
             totalScore += state.scoreValue;
         }
 
         // 5. 점수 계산 후 효과
-        for(int i = 0; i < diceStates.Count; i++)
+        foreach(var state in simulationStates)
         {
-            if(i < abilities.Count && abilities[i] != null)
+            if(state != null)
             {
-                abilities[i].AfterCalculateEffect(diceStates[i], diceStates, ref totalScore);
+                state.diceData.AfterCalculateEffect(state, simulationStates, ref totalScore);
             }
         }
 

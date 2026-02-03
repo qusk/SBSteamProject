@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 
 [CreateAssetMenu(fileName = "Ability", menuName = "DiceAbility/fire")]
-public class FireDiceAbility : DiceAbility
+public class FireDiceAbility : DiceData
 {
     public int bonusScore = 3;
 

@@ -11,32 +11,19 @@ public class Dice : MonoBehaviour
     public GameObject effectPrefab;
     public AudioClip rollSound;
 
-    private DiceSkin _defaultSkin;
-    public DiceAbility MyAbility { get; private set; }
-    
-    // 현재 눈금 저장
-    public int CurrentValue { get; private set; }
-    public void SetAbility(DiceAbility ability)
-    {
-        this.MyAbility = ability;
-        // 다이스 기본 세팅
-        UpdateDiceImage(1);
-    }
+    public DiceState MyState { get; private set; }
 
-    public void SetDefaultSkin(DiceSkin skin)
+    public void Initialize(int index, DiceData data)
     {
-        _defaultSkin = skin;
+        MyState = new DiceState(data, index, 1);
+        UpdateDiceImage(1);
     }
 
     public void UpdateDiceImage(int value)
     {
-        if(MyAbility != null && MyAbility.skin != null)
+        if (MyState != null && MyState.diceData != null && MyState.diceData.skin != null)
         {
-            diceImage.sprite = MyAbility.skin.GetSprite(value);
-        }
-        else if(_defaultSkin != null)
-        {
-            diceImage.sprite = _defaultSkin.GetSprite(value);
+            diceImage.sprite = MyState.diceData.skin.GetSprite(value);
         }
     }
 
@@ -64,7 +51,8 @@ public class Dice : MonoBehaviour
     {
         StopAllCoroutines();
 
-        CurrentValue = resultValue;
+        MyState.originalValue = resultValue;
+        MyState.modifiedValue = resultValue;
 
         UpdateDiceImage(resultValue);
     }

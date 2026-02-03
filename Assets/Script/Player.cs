@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
             DescManager.instance.UpdateInfo(player);
     }
 
-    public void PushPlayerDices(DiceAbility Dice)
+    public void PushPlayerDices(DiceData Dice)
     {
         for (int i = 0; i < player.DiceSo.Length; i++)
         {
@@ -38,7 +38,7 @@ public class Player : MonoBehaviour
 
     }
 
-    public void PullPlayerDices(DiceAbility Dice)
+    public void PullPlayerDices(DiceData Dice)
     {
         for (int i = 0; i < player.DiceSo.Length; i++)
         {
@@ -51,7 +51,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void ResetDices(DiceAbility[] Dices)
+    public void ResetDices(DiceData[] Dices)
     {
         for(int i = 0;i < Dices.Length; i++)
         {
