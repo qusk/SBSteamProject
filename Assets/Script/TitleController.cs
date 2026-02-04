@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Unity.VectorGraphics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -11,7 +12,7 @@ public class TitleController : MonoBehaviour
     {
         uiManager.InitUI();
 #if UNITY_EDITOR
-        Array.Clear(Player.instance.player.DiceSo,0,Player.instance.player.DiceSo.Length);
+        Player.instance.player.DiceSo = Enumerable.Repeat(Player.instance.defaultDice, 6).ToArray();
 #endif
 
         if (AudioManager.instance != null)

@@ -18,8 +18,9 @@ public class DiceManager : MonoBehaviour
     public Dice[] panelDiceScript;
 
     [Header("주사위 데이터")]
-    public List<DiceData> diceDatas;
+    //public List<DiceData> diceDatas;
 
+    public PlayerSo player;
 
     [Header("기본 설정")]
     public DiceData defaultDiceData;
@@ -52,11 +53,12 @@ public class DiceManager : MonoBehaviour
         for(int i = 0; i < panelDiceScript.Length; i++)
         {
             DiceData dataToUse = defaultDiceData;
-            if(i < diceDatas.Count && diceDatas[i] != null)
-            {
-                dataToUse = diceDatas[i];
-            }
-
+            //if(i < diceDatas.Count && diceDatas[i] != null)
+            //{
+                
+                
+            //}
+            dataToUse = player.DiceSo[i];
             panelDiceScript[i].Initialize(i, dataToUse);
         }
     }

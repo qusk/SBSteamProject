@@ -57,4 +57,18 @@ public class DiceSelectManager : MonoBehaviour
             }
         }
     }
+
+    public void SelectDiceComb()
+    {
+        for(int i = 0;i < Synergy.transform.childCount; i++)
+        {
+            synergyDice = Synergy.transform.GetChild(i);
+            if (!synergyDice.gameObject.activeSelf)
+            {
+                Player.instance.PushPlayerDices(Player.instance.defaultDice);
+                synergyDice.GetComponent<SynergyDice>().UpdateDiceInfo(Player.instance.defaultDice);
+                synergyDice.gameObject.SetActive(true);
+            }
+        }
+    }
 }

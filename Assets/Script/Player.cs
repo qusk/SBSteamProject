@@ -4,6 +4,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public static Player instance;
+    public DiceData defaultDice;
     public PlayerSo player;
 
     private void Awake()

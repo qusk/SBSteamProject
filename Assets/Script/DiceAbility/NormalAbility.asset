@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50b83e714b983844abd4da4a1520c267, type: 3}
   m_Name: NormalAbility
   m_EditorClassIdentifier: Assembly-CSharp::DiceAbility
-  abilityName: 
+  abilityName: "\uB178\uBA40 \uB2E4\uC774\uC2A4"
   weight: 30
   gold: 1
   Desc: "[\uAE30\uBCF8 \uC8FC\uC0AC\uC704]\n\u2605\n\uAE30\uBCF8 \uC8FC\uC0AC\uC704
