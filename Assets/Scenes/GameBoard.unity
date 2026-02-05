@@ -1587,7 +1587,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   currentRound: 1
-  targetScore: 100
+  targetScore: 50
   maxLives: 1
   currentLives: 0
   maxRerollCount: 1
@@ -2999,6 +2999,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 669844170}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: LoadShopScreen
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1213203420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3755,7 +3767,6 @@ MonoBehaviour:
   - {fileID: 494824176}
   - {fileID: 946507316}
   - {fileID: 1193525359}
-  diceDatas: []
   player: {fileID: 11400000, guid: 8a24a149812fe8e4ebac57431cd58922, type: 2}
   defaultDiceData: {fileID: 0}
 --- !u!4 &1601443937

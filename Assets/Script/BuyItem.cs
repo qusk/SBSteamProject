@@ -3,65 +3,24 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class BuyItem : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class BuyItem : BuyThings, IPointerClickHandler, IEndDragHandler
 {
-    bool bought = false;
-    ItemSo itemInfo;
-    Image img;
-    Image childImage;
-    TextMeshProUGUI Desc;
-    Transform canvas;
-    Transform previousParent;
-    RectTransform rect;
-    CanvasGroup canvasGroup;
-    public bool inPotiner = false;
+    public ItemSo itemInfo;
 
-    DiceData DiceInfo;
+    public override void OnPointerEnter() { base.OnPointerEnter(); }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Awake()
-    {
-        img = GetComponent<Image>();
-        childImage = GetComponentsInChildren<Image>(true)[1];
-        canvas = FindObjectOfType<Canvas>().transform;
-        rect = GetComponent<RectTransform>();
-        canvasGroup = GetComponent<CanvasGroup>();
-        Desc = childImage.GetComponentInChildren<TextMeshProUGUI>();
-    }
+    public override void OnPointerExit() { base.OnPointerExit(); }
 
-    void Start()
-    {
-        Desc.text = DiceInfo.Desc;
-    }
+    public override void OnBeginDrag(PointerEventData eventData) { base.OnBeginDrag(eventData); }
 
-    public void UpdateInfo(ItemSo item)
+    public override void OnDrag(PointerEventData eventData) { base.OnDrag(eventData); }
+
+    public void UpdateInfo(ItemSo item, bool buy)
     {
         itemInfo = item;
         img.sprite = item.itemIcon;
         Desc.text = itemInfo.itemDesc;
-    }
-
-    public void UpdateDiceInfo(DiceData data)
-    {
-        DiceInfo = data;
-        img.sprite = data.skin.GetSprite(1);
-        Desc.text = data.Desc;
-    }
-
-    public void OnPointerEnter()
-    {
-        inPotiner = true;
-        DescManager.instance.DeSelectDesc();
-        childImage.gameObject.SetActive(true);
-    }
-
-    public void OnPointerExit()
-    {
-        inPotiner = false;
-        if (!DescManager.instance.descOn)
-        {
-            childImage.gameObject.SetActive(false);
-        }
+        bought = buy;
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -74,36 +33,20 @@ public class BuyItem : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, I
             }
 
         }
-        else if (eventData.button == PointerEventData.InputButton.Right && bought)
+        if (eventData.button == PointerEventData.InputButton.Right && bought)
         {
-            DescManager.instance.SellGold(DiceInfo.gold - 1);
-            Player.instance.PullPlayerDices(DiceInfo);
+            DescManager.instance.SellGold(itemInfo.gold - 1);
+            Player.instance.PullPlayerItems(itemInfo);
             Destroy(gameObject);
         }
-    }
-
-    public void OnBeginDrag(PointerEventData eventData)
-    {
-        previousParent = transform.parent;
-
-        transform.SetParent(canvas);
-        transform.SetAsLastSibling();
-
-        canvasGroup.alpha = 0.6f;
-        canvasGroup.blocksRaycasts = false;
-    }
-
-    public void OnDrag(PointerEventData eventData)
-    {
-        rect.position = eventData.position;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
         if (!bought)
         {
-            if(transform.parent.CompareTag("BuySlot") || transform.parent == canvas ||
-                Player.instance.player.gold - DiceInfo.gold < 0)
+            if (!transform.parent.CompareTag("Inventory") || transform.parent == canvas ||
+                Player.instance.player.gold - itemInfo.gold < 0)
             {
                 transform.SetParent(previousParent);
                 rect.position = previousParent.GetComponent<RectTransform>().position;
@@ -111,13 +54,13 @@ public class BuyItem : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, I
             else
             {
                 bought = !bought;
-                DescManager.instance.BuyGold(DiceInfo.gold);
-                Player.instance.PushPlayerDices(DiceInfo);
+                DescManager.instance.BuyGold(itemInfo.gold);
+                Player.instance.PushPlayerItems(itemInfo);
             }
         }
         else
         {
-            if (transform.parent == canvas || transform.parent.CompareTag("BuySlot"))
+            if (transform.parent == canvas || !transform.parent.CompareTag("Inventory"))
             {
                 transform.SetParent(previousParent);
                 rect.position = previousParent.GetComponent<RectTransform>().position;
@@ -126,7 +69,7 @@ public class BuyItem : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, I
 
         canvasGroup.alpha = 1.0f;
         canvasGroup.blocksRaycasts = true;
+        isDragged = false;
     }
 
 }
-

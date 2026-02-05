@@ -39,6 +39,20 @@ public class Player : MonoBehaviour
 
     }
 
+    public void PushPlayerItems(ItemSo item)
+    {
+        for (int i = 0; i < player.itemSo.Length; i++)
+        {
+            if (player.itemSo[i] == null)
+            {
+                player.itemSo[i] = item;
+                return;
+            }
+
+        }
+
+    }
+
     public void PullPlayerDices(DiceData Dice)
     {
         for (int i = 0; i < player.DiceSo.Length; i++)
@@ -46,6 +60,19 @@ public class Player : MonoBehaviour
             if (player.DiceSo[i] == Dice)
             {
                 player.DiceSo[i] = null;
+                return;
+            }
+
+        }
+    }
+
+    public void PullPlayerItems(ItemSo item)
+    {
+        for (int i = 0; i < player.itemSo.Length; i++)
+        {
+            if (player.itemSo[i] == item)
+            {
+                player.itemSo[i] = null;
                 return;
             }
 

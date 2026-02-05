@@ -21,6 +21,7 @@ public class MainOption : MonoBehaviour
 
     private void Start()
     {
+
         SettingsManager.instance.LoadSettings();
         UpdateUI();
     }

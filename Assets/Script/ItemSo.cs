@@ -9,7 +9,7 @@ public class ItemSo : ScriptableObject
     public Sprite itemIcon;
     public string itemName;
     public int weight;
-    public int Gold;
+    public int gold;
     [TextArea]
     public string itemDesc;
  

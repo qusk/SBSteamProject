@@ -8,6 +8,7 @@ TagManager:
   - BuySlot
   - Scroll
   - Synergy
+  - Inventory
   layers:
   - Default
   - TransparentFX

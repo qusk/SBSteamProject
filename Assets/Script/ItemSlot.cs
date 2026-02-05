@@ -16,12 +16,14 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        image.color = Color.yellow;
+        if (!gameObject.CompareTag("BuySlot"))
+            image.color = Color.yellow;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        image.color = Color.white;
+        if (!gameObject.CompareTag("BuySlot"))
+            image.color = Color.white;
     }
 
     public void OnDrop(PointerEventData eventData)

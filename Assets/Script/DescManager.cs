@@ -9,7 +9,6 @@ public class DescManager : MonoBehaviour
     public TextMeshProUGUI textGold;
 
     [Header("라운드")]
-    public TextMeshProUGUI roundScore;
     public TextMeshProUGUI currentRound;
     
     GameObject selectDesc;
@@ -29,7 +28,6 @@ public class DescManager : MonoBehaviour
 
     public void UpdateInfo(PlayerSo player)
     {
-        roundScore.text = "현재 라운드:" + player.roundScore.ToString();
         currentRound.text = "라운드 점수: " + player.currentRound.ToString();
         textGold.text = "골드: " + player.gold.ToString();
     }

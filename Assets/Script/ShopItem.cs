@@ -6,36 +6,94 @@ using UnityEngine;
 public class ShopItem : MonoBehaviour
 {
 
-    public int total = 0;
-    
-    [Header("주사위 데이터 베이스")]
-    //public ItemSo[] itemDB;
+    int totalDice = 0;
+    int totalItem = 0;
+    BuyDice[] buyDice;
+    BuyItem[] buyItem;
+
+    [Header("데이터 베이스")]
+    public ItemSo[] itemDB;
     public DiceData[] DiceDB;
     
-    [Header("구매 주사위")]
-    public BuyItem[] buyDice;
+    [Header("구매 아이템 슬롯")]
     public ItemSlot[] itemSlots;
-    public GameObject Dice;
+    public int DiceSlotNum;
+    public int itemSlotNum;
 
+    [Header("프리팹")]
+    public GameObject Dice;
+    public GameObject Item;
+    public GameObject myDicePanel;
+    public GameObject Iventory;
 
 
     int randomIndex = -1;
-    public List<int> usedIndex = new List<int>();
+    //List<int> usedIndex = new List<int>();
 
     void Start()
     {
-        for(int i = 0;i<DiceDB.Length; i++)
+        SetUp();
+        Reroll();
+
+        AudioManager.instance.PlayBgm(AudioManager.Bgm.Shop, true);
+    }
+
+    public void Reroll()
+    {
+        RerollDice();
+        ReRollItem();
+    }
+
+    public void SetUp()
+    {
+        buyDice = new BuyDice[DiceSlotNum];
+        buyItem = new BuyItem[itemSlotNum];
+
+        for (int i = 0; i < DiceDB.Length; i++)
         {
-            total += DiceDB[i].weight;
+            totalDice += DiceDB[i].weight;
+        }
+
+        for (int i = 0; i < itemDB.Length; i++)
+        {
+            totalItem += itemDB[i].weight;
+        }
+
+        BuyDice slotChildDice = null;
+        
+
+        for (int i = 0; i < myDicePanel.transform.childCount; i++)
+        {
+            slotChildDice = myDicePanel.transform.GetChild(i).GetComponentInChildren<BuyDice>();
+            if (Player.instance.player.DiceSo[i] == null)
+            {
+                Player.instance.PushPlayerDices(Player.instance.defaultDice);
+            }
+            slotChildDice.UpdateDiceInfo(Player.instance.player.DiceSo[i], true);
+
+        }
+
+        Transform slotChildItem = null;
+        GameObject item;
+
+        for (int i = 0; i < Iventory.transform.childCount; i++)
+        {
+            if (Player.instance.player.itemSo[i] != null)
+            {
+                slotChildItem = Iventory.transform.GetChild(i);
+                item = Instantiate(Item);
+                item.GetComponent<BuyItem>().UpdateInfo(Player.instance.player.itemSo[i], true);
+                item.transform.SetParent(slotChildItem.transform);
+                item.transform.GetComponent<RectTransform>().localPosition = Vector3.zero;
+            }
         }
     }
 
-    public int RandomItem()
+    int RandomDice()
     {
         int weight = 0;
-        int selectNum = 0;
-
-        selectNum = Mathf.RoundToInt(total * Random.Range(0.0f,1.0f));
+        int selectNum = 0; 
+        selectNum = Mathf.RoundToInt(totalDice * Random.Range(0.0f,1.0f));
 
         for(int i = 0; i < DiceDB.Length; i++)
         {
@@ -48,48 +106,108 @@ public class ShopItem : MonoBehaviour
         return -1;
     }
 
-    
-
-    public void reroll()
+    int RandomItem()
     {
-        for (int i = 0; i < itemSlots.Length; i++)
+        int weight = 0;
+        int selectNum = 0;
+        selectNum = Mathf.RoundToInt(totalItem * Random.Range(0.0f, 1.0f));
+
+        for (int i = 0; i < itemDB.Length; i++)
+        {
+            weight += itemDB[i].weight;
+            if (selectNum <= weight)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+
+    void RerollDice()
+    {
+        for (int i = 0; i < DiceSlotNum; i++)
         {
             if (itemSlots[i].transform.childCount > 0)
             {
-                buyDice[i] = itemSlots[i].transform.GetComponentInChildren<BuyItem>();
+                buyDice[i] = itemSlots[i].transform.GetComponentInChildren<BuyDice>();
+                     
             }
             else
             {
-                buyDice[i] = Instantiate(Dice).GetComponent<BuyItem>();
+                buyDice[i] = Instantiate(Dice).GetComponent<BuyDice>();
                 buyDice[i].transform.SetParent(itemSlots[i].transform);
                 buyDice[i].transform.GetComponent<RectTransform>().localPosition = Vector3.zero;
             }
 
 
-            randomIndex = RandomItem();
-            
-            if(usedIndex.Count < DiceDB.Length)
-            {
-                if (!usedIndex.Contains(randomIndex))
-                {
-                    buyDice[i].UpdateDiceInfo(DiceDB[randomIndex]);
-                    usedIndex.Add(randomIndex);
-                }
-                else
-                {
-                    i--;
-                }
-            }
-            else if(usedIndex.Count >= DiceDB.Length)
-            {
-                buyDice[i].UpdateDiceInfo(DiceDB[randomIndex]);
-            }
+            randomIndex = RandomDice();
 
+            buyDice[i].UpdateDiceInfo(DiceDB[randomIndex], false);
             
+            //if (usedIndex.Count < DiceDB.Length)
+            //{
+            //    if (!usedIndex.Contains(randomIndex))
+            //    {
+            //        buyDice[i].UpdateDiceInfo(DiceDB[randomIndex], false);
+            //        usedIndex.Add(randomIndex);
+            //    }
+            //    else
+            //    {
+            //        i--;
+            //    }
+            //}
+            //else if(usedIndex.Count >= DiceDB.Length)
+            //{
+            //    buyDice[i].UpdateDiceInfo(DiceDB[randomIndex], false);
+            //}
 
         }
-        usedIndex.Clear();
+        //usedIndex.Clear();
 
     }
-  
+
+    void ReRollItem()
+    {
+        for(int i = 0; i < itemSlotNum; i++)
+        {
+            if (itemSlots[i + DiceSlotNum].transform.childCount > 0)
+            {
+                buyItem[i] = itemSlots[i + DiceSlotNum].transform.GetComponentInChildren<BuyItem>();
+
+            }
+            else
+            {
+                buyItem[i] = Instantiate(Item).GetComponent<BuyItem>();
+                buyItem[i].transform.SetParent(itemSlots[i + DiceSlotNum].transform);
+                buyItem[i].transform.GetComponent<RectTransform>().localPosition = Vector3.zero;
+            }
+
+
+            randomIndex = RandomItem();
+
+            buyItem[i].UpdateInfo(itemDB[randomIndex], false);
+        }
+
+    }
+
+
+
+
+
+    public void SelectDiceComb()
+    {
+        GameObject myDicePanelSlot;
+        
+        for (int i = 0; i < myDicePanel.transform.childCount; i++)
+        {
+            myDicePanelSlot = myDicePanel.transform.GetChild(i).gameObject;
+            if (myDicePanelSlot.transform.childCount == 0)
+            {
+                Player.instance.PushPlayerDices(Player.instance.defaultDice);
+
+            }
+        }
+    }
+
 }
