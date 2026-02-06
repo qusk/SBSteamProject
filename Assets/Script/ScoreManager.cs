@@ -10,9 +10,11 @@ public class ScoreManager : MonoBehaviour
         if (instance == null) instance = this;
     }
 
-    public int CalculateScore(Dice[] uiDice)
+    public (int totalScore, List<ScoreEventData> events) CalculateScore(Dice[] uiDice)
     {
         List<DiceState> simulationStates = new List<DiceState>();
+        List<ScoreEventData> scoreEvents = new List<ScoreEventData>();
+
         for(int i = 0; i < uiDice.Length; i++)
         {
             if (uiDice[i] != null)
@@ -29,7 +31,7 @@ public class ScoreManager : MonoBehaviour
         {
             if(state != null)
             {
-                state.diceData.OnRuleEffect(state, simulationStates);
+                state.diceData.OnRuleEffect(state, simulationStates, scoreEvents);
             }
         }
 
@@ -38,7 +40,7 @@ public class ScoreManager : MonoBehaviour
         {
             if (state != null)
             {
-                state.diceData.OnRollEffect(state, simulationStates);
+                state.diceData.OnRollEffect(state, simulationStates, scoreEvents);
             }
         }
 
@@ -47,7 +49,7 @@ public class ScoreManager : MonoBehaviour
         {
             if (state != null)
             {
-                state.diceData.BeforeCalculateEffect(state, simulationStates);
+                state.diceData.BeforeCalculateEffect(state, simulationStates, scoreEvents);
             }
         }
 
@@ -56,6 +58,12 @@ public class ScoreManager : MonoBehaviour
         foreach(var state in simulationStates)
         {
             totalScore += state.scoreValue;
+            scoreEvents.Add(new ScoreEventData(
+                ScoreEventData.Type.AddScore,
+                state.diceIndex,
+                totalScore,
+                $"+{state.scoreValue}"
+                ));
         }
 
         // 5. 점수 계산 후 효과
@@ -63,10 +71,16 @@ public class ScoreManager : MonoBehaviour
         {
             if(state != null)
             {
-                state.diceData.AfterCalculateEffect(state, simulationStates, ref totalScore);
+                state.diceData.AfterCalculateEffect(state, simulationStates, ref totalScore, scoreEvents);
             }
         }
 
-        return totalScore;
+        scoreEvents.Add(new ScoreEventData(
+            ScoreEventData.Type.FinalScore, 
+            -1,
+            totalScore,
+            "Total"));
+
+        return (totalScore, scoreEvents);
     }
 }

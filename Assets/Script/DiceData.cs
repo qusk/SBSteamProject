@@ -16,11 +16,11 @@ public class DiceData : ScriptableObject
     public DiceSkin skin; 
 
     // myState: 내 주사위 상태, allDice: 모든 주사위 상태 리스트
-    public virtual void OnRuleEffect(DiceState myState, List<DiceState> allDice) { }
+    public virtual void OnRuleEffect(DiceState myState, List<DiceState> allDice, List<ScoreEventData> scoreEvent) { }
 
-    public virtual void OnRollEffect(DiceState myState, List<DiceState> allDice) { }
+    public virtual void OnRollEffect(DiceState myState, List<DiceState> allDice, List<ScoreEventData> scoreEvnet) { }
 
-    public virtual void BeforeCalculateEffect(DiceState myState, List<DiceState> allDice) { }
+    public virtual void BeforeCalculateEffect(DiceState myState, List<DiceState> allDice, List<ScoreEventData> scoreEvent) { }
 
-    public virtual void AfterCalculateEffect(DiceState myState, List<DiceState> allDice, ref int score) { }
+    public virtual void AfterCalculateEffect(DiceState myState, List<DiceState> allDice, ref int score, List<ScoreEventData> scoreEvent) { }
 }

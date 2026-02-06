@@ -146,10 +146,14 @@ public class DiceManager : MonoBehaviour
 
 
         // 점수 계산
-        
-      
-        int finalScore = ScoreManager.instance.CalculateScore(panelDiceScript);
+        var result = ScoreManager.instance.CalculateScore(panelDiceScript);
+        int finalScore = result.totalScore;
+        List<ScoreEventData> events = result.events;
 
+        if(ScoreVisualizer.instance != null)
+        {
+            yield return StartCoroutine(ScoreVisualizer.instance.PlayScoreEventSequence(panelDiceScript, events));
+        }
         if(GameManager.instance != null)
         {
             GameManager.instance.ProcessRollResult(finalScore);
