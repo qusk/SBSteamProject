@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cc3db5170b274742888a81be1ecdcee, type: 3}
+  m_Name: SkyDice
+  m_EditorClassIdentifier: Assembly-CSharp::DiceSkin
+  sprites:
+  - {fileID: 6776551877628991105, guid: c7d05f77f9d8f72418746ddafa3615c0, type: 3}
+  - {fileID: -39315797604035318, guid: 47f2d319807f57e48b94869e19f3c1b4, type: 3}
+  - {fileID: -8373313532329077629, guid: e208731c7cd7f0645a289cf5a902d070, type: 3}
+  - {fileID: 6250462263593895214, guid: bcb9a86ac448a6c4e84666ea0229ec22, type: 3}
+  - {fileID: -2695729387604631091, guid: afbea8d9c4018b2438ed907883447b73, type: 3}
+  - {fileID: -5040150569290812769, guid: 5ff06257243b6764487c051f8db8a8bc, type: 3}

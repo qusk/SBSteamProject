@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cc3db5170b274742888a81be1ecdcee, type: 3}
+  m_Name: LandDice
+  m_EditorClassIdentifier: Assembly-CSharp::DiceSkin
+  sprites:
+  - {fileID: 21300000, guid: 2fc242ad648d85d4e8cfbfba18dba02c, type: 3}
+  - {fileID: 21300000, guid: 27d8ab962d7750b46a0b25919371304b, type: 3}
+  - {fileID: 21300000, guid: 1ba9660faaeb731458181e787c05a9b0, type: 3}
+  - {fileID: 21300000, guid: c6313d38d1d59724d9ce924c99f13d85, type: 3}
+  - {fileID: 21300000, guid: 39d4330470679f64cac75214fd7c44fd, type: 3}
+  - {fileID: 21300000, guid: f93cbed41d9c9954493397558814d778, type: 3}

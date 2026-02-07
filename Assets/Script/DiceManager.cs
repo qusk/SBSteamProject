@@ -10,7 +10,11 @@ using System.Drawing;
 
 public class DiceManager : MonoBehaviour
 {
-
+    [Header("테스트용")]
+    public bool isTestMode = false;
+    public DiceData[] testAbilities;
+    public int[] testDiceValues = new int[6];
+    
     [Header("UI 연결")]
     public RectTransform rollArea;
 
@@ -58,8 +62,37 @@ public class DiceManager : MonoBehaviour
                 
                 
             //}
-            dataToUse = player.DiceSo[i];
-            panelDiceScript[i].Initialize(i, dataToUse);
+
+            if(isTestMode && testAbilities != null && i < testAbilities.Length)
+            {
+                if (testAbilities[i] != null)
+                {
+                    dataToUse = testAbilities[i];
+                }
+            }
+
+            // 2. 테스트 데이터가 없거나 테스트 모드가 아니면 -> 기본 덱 사용
+            if (dataToUse == null)
+            {
+                if (player != null && i < player.DiceSo.Length)
+                {
+                    dataToUse = player.DiceSo[i];
+                }
+                // 그래도 없으면 디폴트 사용
+                else
+                {
+                    dataToUse = defaultDiceData;
+                }
+            }
+
+            if (dataToUse != null)
+            {
+                panelDiceScript[i].Initialize(i, dataToUse);
+            }
+            else
+            {
+                Debug.LogError($"[DiceManager] {i}번 주사위 데이터가 없습니다!");
+            }
         }
     }
 
@@ -92,6 +125,16 @@ public class DiceManager : MonoBehaviour
 
             // 눈금 값 결정
             int randomResult = Random.Range(1, 7);
+
+            // 테스트 모드(눈금 강제)
+            if(isTestMode && testDiceValues != null && i < testDiceValues.Length)
+            {
+                if (testDiceValues[i] > 0)
+                {
+                    randomResult = Mathf.Clamp(testDiceValues[i], 1, 6);
+                }
+            }
+
 
             // dice 객체에 데이터 입력
             currentDice.SetResult(randomResult);
@@ -146,10 +189,9 @@ public class DiceManager : MonoBehaviour
 
 
         // 점수 계산
-        var result = ScoreManager.instance.CalculateScore(panelDiceScript);
+        var result = ScoreManager.instance.CalculateScore(panelDiceScript, ScoreManager.DiceType.Roll);
         int finalScore = result.totalScore;
         List<ScoreEventData> events = result.events;
-
         if(ScoreVisualizer.instance != null)
         {
             yield return StartCoroutine(ScoreVisualizer.instance.PlayScoreEventSequence(panelDiceScript, events));
@@ -170,11 +212,6 @@ public class DiceManager : MonoBehaviour
         }
 
         return lastDiceSprite;
-    }
-
-    public void ResetForNewRound()
-    {
-        _isRolling = false;
     }
 
     // 화면 랜덤 좌표 

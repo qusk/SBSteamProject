@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     public int targetScore = 20;
     public int maxLives = 3;
     public int currentLives ;
+    public int heart = 3;
+    public int gold = 50;
 
     public int maxRerollCount = 1;
     private int _currentRerollCount;
