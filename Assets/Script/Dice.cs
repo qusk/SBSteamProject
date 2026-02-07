@@ -15,7 +15,7 @@ public class Dice : MonoBehaviour
 
     public void Initialize(int index, DiceData data)
     {
-        MyState = new DiceState(data, index, 1);
+        MyState = new DiceState(data, index, 1, false);
         UpdateDiceImage(1);
     }
 

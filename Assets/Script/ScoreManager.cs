@@ -5,29 +5,37 @@ public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager instance;
 
+    public enum Type { Even, Odd, Equal, Single, None, Roll }
+    public Type type;
+
     private void Awake()
     {
         if (instance == null) instance = this;
     }
 
-    public int CalculateScore(Dice[] uiDice)
+    public int CalculateScore(Dice[] uiDice, Type type)
     {
         List<DiceState> simulationStates = new List<DiceState>();
-        for(int i = 0; i < uiDice.Length; i++)
+        for (int i = 0; i < uiDice.Length; i++)
         {
             if (uiDice[i] != null)
             {
                 DiceData data = uiDice[i].MyState.diceData;
+                if(type != Type.Roll)
+                {
+                    if (data.type != type) continue;
+                }               
                 int originalValue = uiDice[i].MyState.originalValue;
-                simulationStates.Add(new DiceState(data, i, originalValue));
+                bool isEven = originalValue % 2 == 0 ? true : false;
+                simulationStates.Add(new DiceState(data, i, originalValue, isEven));
             }
         }
 
         // 점수 로직
         // 1. 룰상 효과
-        foreach(var state in simulationStates)
+        foreach (var state in simulationStates)
         {
-            if(state != null)
+            if (state != null)
             {
                 state.diceData.OnRuleEffect(state, simulationStates);
             }
@@ -53,15 +61,15 @@ public class ScoreManager : MonoBehaviour
 
         // 4. 점수 계산
         int totalScore = 0;
-        foreach(var state in simulationStates)
+        foreach (var state in simulationStates)
         {
             totalScore += state.scoreValue;
         }
 
         // 5. 점수 계산 후 효과
-        foreach(var state in simulationStates)
+        foreach (var state in simulationStates)
         {
-            if(state != null)
+            if (state != null)
             {
                 state.diceData.AfterCalculateEffect(state, simulationStates, ref totalScore);
             }
@@ -69,4 +77,5 @@ public class ScoreManager : MonoBehaviour
 
         return totalScore;
     }
+
 }

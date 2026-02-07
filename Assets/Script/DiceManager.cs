@@ -148,7 +148,7 @@ public class DiceManager : MonoBehaviour
         // 점수 계산
         
       
-        int finalScore = ScoreManager.instance.CalculateScore(panelDiceScript);
+        int finalScore = ScoreManager.instance.CalculateScore(panelDiceScript,ScoreManager.Type.Roll);
 
         if(GameManager.instance != null)
         {
