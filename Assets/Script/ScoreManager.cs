@@ -29,8 +29,7 @@ public class ScoreManager : MonoBehaviour
                     continue;
                 }
                 int originalValue = uiDice[i].MyState.originalValue;
-                bool isEven = originalValue % 2 == 0;
-                simulationStates.Add(new DiceState(data, i, originalValue, isEven));
+                simulationStates.Add(new DiceState(data, i, originalValue));
             }
         }
 
