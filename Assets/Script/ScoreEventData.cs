@@ -5,8 +5,9 @@ public class ScoreEventData
     public enum Type
     {
         Rule,          // 룰
-        ChangeFace,    // 눈금
+        ChangeFace,    // 눈금 변경
         AddScore,      // 점수 추가
+        GlobalBuffs,   // 전체 효과
         Multiplier,    // 점수 배율
         FinalScore     // 최종 점수
     }

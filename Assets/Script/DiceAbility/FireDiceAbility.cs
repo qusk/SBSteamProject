@@ -9,6 +9,5 @@ public class FireDiceAbility : DiceData
     public override void BeforeCalculateEffect(DiceState myState, List<DiceState> allDice, List<ScoreEventData> scoreEvent)
     {
         myState.scoreValue *= bonusScore;
-
     }
 }
