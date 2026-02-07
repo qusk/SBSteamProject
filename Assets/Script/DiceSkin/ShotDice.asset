@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cc3db5170b274742888a81be1ecdcee, type: 3}
+  m_Name: ShotDice
+  m_EditorClassIdentifier: Assembly-CSharp::DiceSkin
+  sprites:
+  - {fileID: 8354887466584963598, guid: dce559a9c92888f41bf6f3b7e6777669, type: 3}
+  - {fileID: -2076902127061773713, guid: 8844c12818d793245aef52f5071bdec4, type: 3}
+  - {fileID: 444587953650294182, guid: 36c93c79e7ad3d1438c8df8a641406c8, type: 3}
+  - {fileID: 3019164669314630549, guid: 97cc2f6e0687a354b897f112b85a1fb3, type: 3}
+  - {fileID: 126543277145896527, guid: 900b08b15852ee744aeaf7650579b2fc, type: 3}
+  - {fileID: 4136703962988753313, guid: 74a7cb227db7bf14683116b59049bf8d, type: 3}
