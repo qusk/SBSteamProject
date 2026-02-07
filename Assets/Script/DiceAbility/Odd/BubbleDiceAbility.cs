@@ -6,14 +6,15 @@ public class BubbleDiceAbility : DiceData
 {
     public int bonusScore = 3;
 
-    public override void OnRollEffect(DiceState myState, List<DiceState> allDice)
+    public override void OnRollEffect(DiceState myState, List<DiceState> allDice, List<ScoreEventData> events)
     {
-        if (myState != null && myState.isEven == false)
+        if(myState.IsCurrentEven)
         {
-            myState.isEven = true;
+            myState.isForceOdd = true;
             myState.scoreValue += bonusScore;
+
+            events.Add(new ScoreEventData(ScoreEventData.Type.AddScore, myState.diceIndex, 0, "Bubble"));
         }
-        
     }
 
 }

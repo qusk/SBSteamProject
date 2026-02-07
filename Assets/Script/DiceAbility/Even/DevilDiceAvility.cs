@@ -6,21 +6,21 @@ public class DevilDiceAbility : DiceData
 {
     public int bonusScore = 5;
 
-    public override void BeforeCalculateEffect(DiceState myState, List<DiceState> allDice)
+    public override void BeforeCalculateEffect(DiceState myState, List<DiceState> allDice, List<ScoreEventData> events)
     {
-        for (int i = 0; i < allDice.Count; i++)
+        foreach(var dice in allDice)
         {
-            if (allDice[i] == null) return;
-                
-            if (allDice[i].originalValue % 2 == 0)
+            if(dice.IsCurrentEven)
             {
-                allDice[i].scoreValue += bonusScore;
+                dice.scoreValue += bonusScore;
+                events.Add(new ScoreEventData(ScoreEventData.Type.AddScore, dice.diceIndex, 0, "Devil + effect"));
             }
             else
             {
-                allDice[i].scoreValue -= (bonusScore - 2);
+                int panelty = bonusScore - 3;
+                dice.scoreValue -= panelty;
+                events.Add(new ScoreEventData(ScoreEventData.Type.AddScore, dice.diceIndex, 0, "Devil - effect"));
             }
         }
-
     }
 }

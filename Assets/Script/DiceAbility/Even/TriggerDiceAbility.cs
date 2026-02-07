@@ -6,17 +6,23 @@ public class TriggerDiceAbility : DiceData
 {
     public int bonusScore = 2;
 
-    public override void AfterCalculateEffect(DiceState myState, List<DiceState> allDice, ref int totalScore)
+    public override void AfterCalculateEffect(DiceState myState, List<DiceState> allDice, ref int totalScore, List<ScoreEventData> events)
     {
-        for (int i = 0; i < allDice.Count; i++)
-        {
-            if (allDice[i].originalValue % 2 == 1) return;
+        bool isConditionMet = true;
 
-            if (i == allDice.Count - 1 && allDice[i].originalValue % 2 == 0)
+        foreach(var dice in allDice)
+        {
+            if(dice != null && !dice.IsCurrentEven)
             {
-                totalScore *= bonusScore;
+                isConditionMet = false;
+                break;
             }
         }
 
+        if (isConditionMet)
+        {
+            totalScore *= bonusScore;
+            events.Add(new ScoreEventData(ScoreEventData.Type.GlobalBuffs, -1, 0, $"Trigger! x{bonusScore}"));
+        }
     }
 }

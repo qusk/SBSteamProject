@@ -1,33 +1,35 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager instance;
 
-    public enum Type { Even, Odd, Equal, Single, None, Roll }
-    public Type type;
+    public enum DiceType { Even, Odd, Equal, Single, None, Roll }
 
     private void Awake()
     {
         if (instance == null) instance = this;
     }
 
-    public int CalculateScore(Dice[] uiDice, Type type)
+
+    public (int totalScore, List<ScoreEventData> events) CalculateScore(Dice[] uiDice, DiceType filterType = DiceType.Roll)
     {
         List<DiceState> simulationStates = new List<DiceState>();
-        for (int i = 0; i < uiDice.Length; i++)
+        List<ScoreEventData> scoreEvents = new List<ScoreEventData>();
+
+        for(int i = 0; i < uiDice.Length; i++)
         {
             if (uiDice[i] != null)
             {
                 DiceData data = uiDice[i].MyState.diceData;
-                if(type != Type.Roll)
+                if(filterType != DiceType.Roll && data.type != filterType)
                 {
-                    if (data.type != type) continue;
-                }               
+                    continue;
+                }
                 int originalValue = uiDice[i].MyState.originalValue;
-                bool isEven = originalValue % 2 == 0 ? true : false;
-                simulationStates.Add(new DiceState(data, i, originalValue, isEven));
+                simulationStates.Add(new DiceState(data, i, originalValue));
             }
         }
 
@@ -37,7 +39,7 @@ public class ScoreManager : MonoBehaviour
         {
             if (state != null)
             {
-                state.diceData.OnRuleEffect(state, simulationStates);
+                state.diceData.OnRuleEffect(state, simulationStates, scoreEvents);
             }
         }
 
@@ -46,7 +48,7 @@ public class ScoreManager : MonoBehaviour
         {
             if (state != null)
             {
-                state.diceData.OnRollEffect(state, simulationStates);
+                state.diceData.OnRollEffect(state, simulationStates, scoreEvents);
             }
         }
 
@@ -55,7 +57,7 @@ public class ScoreManager : MonoBehaviour
         {
             if (state != null)
             {
-                state.diceData.BeforeCalculateEffect(state, simulationStates);
+                state.diceData.BeforeCalculateEffect(state, simulationStates, scoreEvents);
             }
         }
 
@@ -64,6 +66,12 @@ public class ScoreManager : MonoBehaviour
         foreach (var state in simulationStates)
         {
             totalScore += state.scoreValue;
+            scoreEvents.Add(new ScoreEventData(
+                ScoreEventData.Type.AddScore,
+                state.diceIndex,
+                totalScore,
+                $"+{state.scoreValue}"
+                ));
         }
 
         // 5. 점수 계산 후 효과
@@ -71,11 +79,17 @@ public class ScoreManager : MonoBehaviour
         {
             if (state != null)
             {
-                state.diceData.AfterCalculateEffect(state, simulationStates, ref totalScore);
+                state.diceData.AfterCalculateEffect(state, simulationStates, ref totalScore, scoreEvents);
             }
         }
 
-        return totalScore;
+        scoreEvents.Add(new ScoreEventData(
+            ScoreEventData.Type.FinalScore, 
+            -1,
+            totalScore,
+            "Total"));
+
+        return (totalScore, scoreEvents);
     }
 
 }
