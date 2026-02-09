@@ -26,4 +26,6 @@ public class DiceState
         this.currentType = data != null ? data.type : ScoreManager.DiceType.None;
         this.isForceOdd = false;
     }
+
+    
 }

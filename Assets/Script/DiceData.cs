@@ -7,10 +7,17 @@ using UnityEngine;
 public class DiceData : ScriptableObject
 {
     public ScoreManager.DiceType type;
-
+    public int multiBonusScore = 1;
+    public int plusBonusScore = 0;
+    protected bool reroll = true;
     public string abilityName;
     public int weight;
     public int gold;
+    
+    
+    
+    public bool Reroll { get => reroll; set => reroll = value; }
+    
     [TextArea]
     public string Desc;
 
@@ -23,6 +30,8 @@ public class DiceData : ScriptableObject
     public virtual void OnRollEffect(DiceState myState, List<DiceState> allDice, List<ScoreEventData> scoreEvnet) { }
 
     public virtual void BeforeCalculateEffect(DiceState myState, List<DiceState> allDice, List<ScoreEventData> scoreEvent) { }
+
+    public virtual void CalculateEffect(DiceState myState, List<DiceState> allDice, ref int score, List<ScoreEventData> scoreEvent) { }
 
     public virtual void AfterCalculateEffect(DiceState myState, List<DiceState> allDice, ref int score, List<ScoreEventData> scoreEvent) { }
 }

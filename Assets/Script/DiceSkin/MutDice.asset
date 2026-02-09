@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cc3db5170b274742888a81be1ecdcee, type: 3}
+  m_Name: MutDice
+  m_EditorClassIdentifier: Assembly-CSharp::DiceSkin
+  sprites:
+  - {fileID: -7840611543066647516, guid: 6103cec8f9554a04382c1102ba0b7c4a, type: 3}
+  - {fileID: -1577856841625314910, guid: fb91b06e4ee4ae24f94377c5b4da0f18, type: 3}
+  - {fileID: -6017797333463101079, guid: bc417aaa04b986642a1c6a11551d3de4, type: 3}
+  - {fileID: 5887380686267211356, guid: 1bd227da50d5f6b44af57cd603242d1f, type: 3}
+  - {fileID: -4364814966852183487, guid: f62978a4280c9a943b743053d84515f9, type: 3}
+  - {fileID: -7509711404856337652, guid: d288f5757d8617c4ea8f687b841b702f, type: 3}

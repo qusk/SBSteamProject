@@ -17,7 +17,7 @@ public class DevilDiceAbility : DiceData
             }
             else
             {
-                int panelty = bonusScore - 3;
+                int panelty = 3;
                 dice.scoreValue -= panelty;
                 events.Add(new ScoreEventData(ScoreEventData.Type.AddScore, dice.diceIndex, 0, "Devil - effect"));
             }

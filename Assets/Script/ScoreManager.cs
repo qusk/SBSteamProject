@@ -7,6 +7,7 @@ public class ScoreManager : MonoBehaviour
     public static ScoreManager instance;
 
     public enum DiceType { Even, Odd, Equal, Single, None, Roll }
+    public int ignore = 0;
 
     private void Awake()
     {
@@ -18,6 +19,7 @@ public class ScoreManager : MonoBehaviour
     {
         List<DiceState> simulationStates = new List<DiceState>();
         List<ScoreEventData> scoreEvents = new List<ScoreEventData>();
+        int totalScore = 0;
 
         for(int i = 0; i < uiDice.Length; i++)
         {
@@ -37,6 +39,11 @@ public class ScoreManager : MonoBehaviour
         // 1. 룰상 효과
         foreach (var state in simulationStates)
         {
+            if (ignore > 0)
+            {
+                ignore--;
+                continue;
+            }
             if (state != null)
             {
                 state.diceData.OnRuleEffect(state, simulationStates, scoreEvents);
@@ -46,6 +53,11 @@ public class ScoreManager : MonoBehaviour
         // 2. 굴림 효과
         foreach (var state in simulationStates)
         {
+            if (ignore > 0)
+            {
+                ignore--;
+                continue;
+            }
             if (state != null)
             {
                 state.diceData.OnRollEffect(state, simulationStates, scoreEvents);
@@ -55,6 +67,11 @@ public class ScoreManager : MonoBehaviour
         // 3. 점수 계산 전 효과
         foreach (var state in simulationStates)
         {
+            if (ignore > 0)
+            {
+                ignore--;
+                continue;
+            }
             if (state != null)
             {
                 state.diceData.BeforeCalculateEffect(state, simulationStates, scoreEvents);
@@ -62,9 +79,10 @@ public class ScoreManager : MonoBehaviour
         }
 
         // 4. 점수 계산
-        int totalScore = 0;
+        
         foreach (var state in simulationStates)
         {
+            
             totalScore += state.scoreValue;
             scoreEvents.Add(new ScoreEventData(
                 ScoreEventData.Type.AddScore,
@@ -72,11 +90,27 @@ public class ScoreManager : MonoBehaviour
                 totalScore,
                 $"+{state.scoreValue}"
                 ));
+
+
+            if (ignore > 0)
+            {
+                ignore--;
+                continue;
+            }
+            if(state != null)
+            {
+                state.diceData.CalculateEffect(state, simulationStates, ref totalScore, scoreEvents);
+            }
         }
 
         // 5. 점수 계산 후 효과
         foreach (var state in simulationStates)
         {
+            if (ignore > 0)
+            {
+                ignore--;
+                continue;
+            }
             if (state != null)
             {
                 state.diceData.AfterCalculateEffect(state, simulationStates, ref totalScore, scoreEvents);

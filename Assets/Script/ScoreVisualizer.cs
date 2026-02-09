@@ -67,7 +67,9 @@ public class ScoreVisualizer : MonoBehaviour
 
                     if(lastTween != null)
                     {
+                        Debug.Log("event End");
                         lastTween.WaitForCompletion();
+                        //yield return new WaitForSeconds(1.0f);
                     }
                     else
                     {

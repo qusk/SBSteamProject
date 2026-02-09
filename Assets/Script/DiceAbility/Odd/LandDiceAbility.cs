@@ -8,15 +8,9 @@ public class LandDiceAbility : DiceData
 
     public override void BeforeCalculateEffect(DiceState myState, List<DiceState> allDice, List<ScoreEventData> events)
     {
-        //for (int i = 0; i < allDice.Count; i++)
-        //{
-        //    if (allDice[i] != null && !myState.isEven)
-        //    {
-        //        allDice[i].scoreValue *= bonusScore;
-        //    }
-        //}
+        bonusScore = bonusScore * multiBonusScore + plusBonusScore;
 
-        foreach(var dice in allDice)
+        foreach (var dice in allDice)
         {
             if(dice != null && !dice.IsCurrentEven)
             {

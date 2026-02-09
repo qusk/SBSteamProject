@@ -19,6 +19,11 @@ public class GameManager : MonoBehaviour
 
     public int maxRerollCount = 1;
     private int _currentRerollCount;
+    public int CurrentRerollCount
+    {
+        get => _currentRerollCount;
+        set => _currentRerollCount = value;
+    }
     private bool _isFirstRoll = true;
 
     public int currentScore = 0;
@@ -85,6 +90,12 @@ public class GameManager : MonoBehaviour
         if (UiController.instance.rollBtn.interactable == false) return;
 
         UiController.instance.rollBtn.interactable = false;
+
+        for (int i = 0; i < diceManager.panelDiceScript.Length; i++)
+        {
+            diceManager.panelDiceScript[i].MyState.diceData.multiBonusScore = 1;
+            diceManager.panelDiceScript[i].MyState.diceData.plusBonusScore = 0;
+        }
 
         if (_isFirstRoll)
         {
