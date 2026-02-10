@@ -7,8 +7,8 @@ using static ScoreManager;
 public class EffectWrapper
 {
     private Delegate _effect;
-    private DiceState _state;
-    private DiceType _type;
+    public DiceState _state;
+    public DiceType _type;
     
     // ref 있는 생성자
     public EffectWrapper(EffectDelegate effect,DiceState state)
@@ -37,6 +37,20 @@ public class EffectWrapper
         {
             withoutRef(_state, allDice, events);
         }
+    }
+
+    public void Execute(List<DiceState> allDice,List<ScoreEventData> events)
+    {
+        if(_effect is EffectDelegate2 WithoutRef)
+        {
+            WithoutRef(_state, allDice, events);
+        }
+        else if(_effect is EffectDelegate WithRef)
+        {
+            int dummyScore = 0;
+            WithRef(_state,allDice, ref dummyScore, events);
+        }
+        
     }
 }
 

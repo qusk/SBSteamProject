@@ -90,6 +90,7 @@ public class GameManager : MonoBehaviour
         if (UiController.instance.rollBtn.interactable == false) return;
 
         UiController.instance.rollBtn.interactable = false;
+        ScoreManager.instance.effects.Clear();
 
         for (int i = 0; i < diceManager.panelDiceScript.Length; i++)
         {
