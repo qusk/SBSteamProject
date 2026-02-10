@@ -1,3 +1,4 @@
+using System;
 using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,11 +10,18 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
+    public PlayerSo playerData;
+
+    public event Action<int> OnGoldChanged;
+    public event Action<int> OnScoreChanged;
+    public event Action<int> OnLivesChanged;
+    public event Action<int, int> OnRoundAndGoalChanged;
+
     [Header("테스트용 설정")]
     public int currentRound = 1;
     public int targetScore = 20;
     public int maxLives = 3;
-    public int currentLives ;
+    public int currentLives;
     public int heart = 3;
     public int gold = 50;
 
@@ -45,17 +53,37 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         currentLives = maxLives;
-        UpdateGameUi();
         StartRound();
     }
-
-    // Update is called once per frame
-    void UpdateGameUi()
+    
+    public void NotifyAllUI()
     {
-        if(UiController.instance != null)
+        int currentGoldVal = (playerData != null) ? playerData.gold : gold;
+        OnGoldChanged?.Invoke(currentGoldVal);
+        OnScoreChanged?.Invoke(currentScore);
+        OnLivesChanged?.Invoke(currentLives);
+        OnRoundAndGoalChanged?.Invoke(currentRound, targetScore);
+    }
+
+    public void AddGold(int gold)
+    {
+        if (playerData != null)
         {
-            UiController.instance.UpdateInGameInfo(currentRound, currentLives, currentScore, targetScore);
+            playerData.gold += gold;
+            if (playerData.gold < 0) { playerData.gold = 0; }
+            OnGoldChanged?.Invoke(playerData.gold);
         }
+        else
+        {
+            this.gold += gold;
+            OnGoldChanged?.Invoke(gold);
+        }
+    }
+
+    public void ModifyLives(int lives)
+    {
+        currentLives += lives;
+        OnLivesChanged?.Invoke(currentLives);
     }
 
     public void StartRound()
@@ -66,9 +94,10 @@ public class GameManager : MonoBehaviour
         _currentRerollCount = maxRerollCount;
         currentScore = 0;
 
-        UiController.instance.HideAllPanels();
-        UpdateGameUi();
+        OnScoreChanged?.Invoke(currentScore);
+        OnRoundAndGoalChanged?.Invoke(currentRound, targetScore);
 
+        UiController.instance.HideAllPanels();
         UiController.instance.UpdateRerollInfo(_currentRerollCount, _isFirstRoll);
         UiController.instance.SetRollBtnInteractable(true);
 
@@ -116,6 +145,7 @@ public class GameManager : MonoBehaviour
     public void ProcessRollResult(int finalScore)
     {
         currentScore = finalScore;
+        OnScoreChanged?.Invoke(currentScore);
 
         if (diceManager != null)
         {
@@ -137,8 +167,6 @@ public class GameManager : MonoBehaviour
         {
             bestScore = currentScore;
         }
-
-        UpdateGameUi();
 
         if (_currentRerollCount <= 0)
         {
@@ -163,8 +191,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            currentLives--;
-            UpdateGameUi();
+            ModifyLives(-1);
             if (currentLives > 0)
             {
                 UiController.instance.ShowResultPanel(false, targetScore, currentScore, currentLives);

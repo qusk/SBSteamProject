@@ -17,6 +17,7 @@ public class UiController : MonoBehaviour
     public TextMeshProUGUI lifeText;     
     public TextMeshProUGUI targetScoreInfoText;
     public TextMeshProUGUI myScoreInfoText;
+    public TextMeshProUGUI goldText;
 
     [Header("라운드 결과 패널 (승리/패배)")]
     public GameObject resultPanel;
@@ -50,26 +51,71 @@ public class UiController : MonoBehaviour
 
     private void Start()
     {
-        AudioManager.instance.PlayBgm(AudioManager.Bgm.Battle, true);
+        //AudioManager.instance.PlayBgm(AudioManager.Bgm.Battle, true);
+
+        if(GameManager.instance != null)
+        {
+            SubscribeToEvents();
+            GameManager.instance.NotifyAllUI();
+        }
     }
 
-    public void UpdateInGameInfo(int round, int lives, int currentScore, int targetScore)
+    private void OnDisable()
     {
-        if(roundInfoText)
+        if (GameManager.instance != null) UnSubscribeToEvents();
+    }
+
+    private void SubscribeToEvents()
+    {
+        GameManager.instance.OnGoldChanged += UpdateGoldUi;
+        GameManager.instance.OnScoreChanged += UpdateScoreUi;
+        GameManager.instance.OnLivesChanged += UpdateLivesUi;
+        GameManager.instance.OnRoundAndGoalChanged += UpdateRoundAndGoalUi;
+    }
+
+    private void UnSubscribeToEvents()
+    {
+        GameManager.instance.OnGoldChanged -= UpdateGoldUi;
+        GameManager.instance.OnScoreChanged -= UpdateScoreUi;
+        GameManager.instance.OnLivesChanged -= UpdateLivesUi;
+        GameManager.instance.OnRoundAndGoalChanged -= UpdateRoundAndGoalUi;
+    }
+
+    private void UpdateGoldUi(int gold)
+    {
+        if(goldText != null)
         {
-            roundInfoText.text = $"Round: {round.ToString()}";
+            goldText.text = gold.ToString("N0");
         }
-        if(lifeText)
+    }
+
+    private void UpdateScoreUi(int score)
+    {
+        if(myScoreInfoText != null)
         {
-            lifeText.text = $"Lives: {lives.ToString()}";
+            myScoreInfoText.SetText("{0}", score);
         }
-        if(targetScoreInfoText)
+    }
+
+    private void UpdateLivesUi(int lives)
+    {
+       if(lifeText != null)
         {
-            targetScoreInfoText.text = $"Target Score: {targetScore.ToString()}";
+            lifeText.SetText("Lives: {0}", lives);
         }
-        if(myScoreInfoText)
+    }
+
+    private void UpdateRoundAndGoalUi(int round, int targetScore)
+    { 
+        Debug.Log($"[UI] 라운드 갱신 시도: Round {round}, Target {targetScore}"); // ★ 이 로그가 뜨는지 확인!
+        if (roundInfoText != null)
         {
-            myScoreInfoText.text = $"My Score: {currentScore.ToString()}";
+            roundInfoText.SetText("Round : {0}", round);
+        }
+
+        if (targetScoreInfoText != null)
+        {
+            targetScoreInfoText.SetText("target score : {0}", targetScore);
         }
     }
 
