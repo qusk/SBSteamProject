@@ -48,12 +48,15 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        currentLives = maxLives;
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        currentLives = maxLives;
         StartRound();
+        UiController.instance.SetRollBtnInteractable(true);
+        UiController.instance.SetConfirmBtnInteratable(false);
     }
     
     public void NotifyAllUI()
@@ -94,12 +97,12 @@ public class GameManager : MonoBehaviour
         _currentRerollCount = maxRerollCount;
         currentScore = 0;
 
-        OnScoreChanged?.Invoke(currentScore);
-        OnRoundAndGoalChanged?.Invoke(currentRound, targetScore);
+        NotifyAllUI();
 
         UiController.instance.HideAllPanels();
-        UiController.instance.UpdateRerollInfo(_currentRerollCount, _isFirstRoll);
+        UiController.instance.UpdateRerollInfo(_currentRerollCount);
         UiController.instance.SetRollBtnInteractable(true);
+        UiController.instance.SetConfirmBtnInteratable(false);
 
         if (diceManager != null)
         {
@@ -113,7 +116,7 @@ public class GameManager : MonoBehaviour
 
         if (UiController.instance.rollBtn.interactable == false) return;
 
-        UiController.instance.rollBtn.interactable = false;
+        UiController.instance.SetRollBtnInteractable(false);
 
         if (_isFirstRoll)
         {
@@ -128,7 +131,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("다시 굴리기");
         }
 
-        UiController.instance.UpdateRerollInfo(_currentRerollCount, _isFirstRoll);
+        UiController.instance.UpdateRerollInfo(_currentRerollCount);
         if(!_isFirstRoll && _currentRerollCount <= 0)
         {
             UiController.instance.SetRollBtnInteractable(false);
@@ -170,12 +173,14 @@ public class GameManager : MonoBehaviour
 
         if (_currentRerollCount <= 0)
         {
-            Debug.Log("리롤 횟수 소진, 자동 점수 확정! 결과 패널 등장");
-            CompleteRound();
+            Debug.Log("리롤 횟수 소진");
+            UiController.instance.SetRollBtnInteractable(false);
+            UiController.instance.SetConfirmBtnInteratable(true);
         }
         else
         {
             UiController.instance.SetRollBtnInteractable(true);
+            UiController.instance.SetConfirmBtnInteratable(true);
         }
     }
 

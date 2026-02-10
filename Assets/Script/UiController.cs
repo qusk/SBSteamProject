@@ -36,6 +36,14 @@ public class UiController : MonoBehaviour
     public Button rollBtn;
     public TextMeshProUGUI rerollText;
 
+    [Header("확정 버튼")]
+    public Button confirmBtn;
+
+    [Header("라이프")]
+    public Transform lifeContainer;
+    public Image heartPrefab;
+
+    private List<Image> lifeHearts = new List<Image>();
 
     private void Awake()
     {
@@ -99,9 +107,23 @@ public class UiController : MonoBehaviour
 
     private void UpdateLivesUi(int lives)
     {
-       if(lifeText != null)
+        while(lifeHearts.Count < lives)
         {
-            lifeText.SetText("Lives: {0}", lives);
+            Image newHeart = Instantiate(heartPrefab, lifeContainer);
+
+            lifeHearts.Add(newHeart);
+        }
+
+        for(int i = 0; i < lifeHearts.Count; i++)
+        {
+            if(i < lives)
+            {
+                lifeHearts[i].gameObject.SetActive(true);
+            }
+            else
+            {
+                lifeHearts[i].gameObject.SetActive(false);
+            }
         }
     }
 
@@ -110,7 +132,7 @@ public class UiController : MonoBehaviour
         Debug.Log($"[UI] 라운드 갱신 시도: Round {round}, Target {targetScore}"); // ★ 이 로그가 뜨는지 확인!
         if (roundInfoText != null)
         {
-            roundInfoText.SetText("Round : {0}", round);
+            roundInfoText.SetText("{0}", round);
         }
 
         if (targetScoreInfoText != null)
@@ -207,11 +229,11 @@ public class UiController : MonoBehaviour
         }
     }
 
-    public void UpdateRerollInfo(int count, bool isFirst)
+    public void UpdateRerollInfo(int count)
     {
         if(rerollText != null)
         {
-            rerollText.text = isFirst ? "Roll" : $"Reroll :{count}";
+            rerollText.SetText("Reroll: {0}", count);
         }
     }
 
@@ -220,6 +242,14 @@ public class UiController : MonoBehaviour
         if(rollBtn != null)
         {
             rollBtn.interactable = state;
+        }
+    }
+
+    public void SetConfirmBtnInteratable(bool state)
+    {
+        if (confirmBtn != null)
+        {
+            confirmBtn.interactable = state;
         }
     }
 
