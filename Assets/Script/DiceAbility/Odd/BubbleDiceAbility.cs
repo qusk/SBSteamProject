@@ -17,6 +17,8 @@ public class BubbleDiceAbility : DiceData
 
             events.Add(new ScoreEventData(ScoreEventData.Type.AddScore, myState.diceIndex, 0, "Bubble"));
         }
+
+        bonusScore = 3;
     }
 
 }

@@ -34,7 +34,8 @@ public class BoosterDiceAbility : DiceData
                 Reroll = false;
             }
         }
-        int score = bonusScore * allDice.Count;
-        totalScore += score;
+
+        totalScore += (bonusScore * allDice.Count);
+        bonusScore = 3;
     }
 }

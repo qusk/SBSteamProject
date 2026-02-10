@@ -1,6 +1,46 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static ScoreManager;
+
+public class EffectWrapper
+{
+    private Delegate _effect;
+    private DiceState _state;
+    private DiceType _type;
+    
+    // ref 있는 생성자
+    public EffectWrapper(EffectDelegate effect,DiceState state)
+    {
+        _effect = effect;
+        _state = state;
+        _type = state.currentType;
+    }
+    
+    // ref 없는 생성자
+    public EffectWrapper(EffectDelegate2 effect,DiceState state)
+    {
+        _effect = effect;
+        _state = state;
+        _type = state.currentType;
+    }
+    
+    // 실행 (항상 ref int 전달)
+    public void Execute(List<DiceState> allDice, ref int totalScore, List<ScoreEventData> events)
+    {
+        if (_effect is EffectDelegate withRef)
+        {
+            withRef(_state, allDice, ref totalScore, events);
+        }
+        else if (_effect is EffectDelegate2 withoutRef)
+        {
+            withoutRef(_state, allDice, events);
+        }
+    }
+}
+
+
 
 public class ScoreManager : MonoBehaviour
 {
@@ -8,6 +48,13 @@ public class ScoreManager : MonoBehaviour
 
     public enum DiceType { Even, Odd, Equal, Single, None, Roll }
     public int ignore = 0;
+
+    public delegate void EffectDelegate(DiceState myState, List<DiceState> allDice, ref int totalScore, List<ScoreEventData> events);
+    public delegate void EffectDelegate2(DiceState myState, List<DiceState> allDice, List<ScoreEventData> events);
+
+    public List<EffectWrapper> effects = new List<EffectWrapper>();
+    
+    
 
     private void Awake()
     {
@@ -46,6 +93,8 @@ public class ScoreManager : MonoBehaviour
             }
             if (state != null)
             {
+                effects.Add(new EffectWrapper(state.diceData.OnRuleEffect, state));
+
                 state.diceData.OnRuleEffect(state, simulationStates, scoreEvents);
             }
         }
@@ -60,6 +109,8 @@ public class ScoreManager : MonoBehaviour
             }
             if (state != null)
             {
+                effects.Add(new EffectWrapper(state.diceData.OnRollEffect, state));
+
                 state.diceData.OnRollEffect(state, simulationStates, scoreEvents);
             }
         }
@@ -74,6 +125,8 @@ public class ScoreManager : MonoBehaviour
             }
             if (state != null)
             {
+                effects.Add(new EffectWrapper(state.diceData.BeforeCalculateEffect, state));
+
                 state.diceData.BeforeCalculateEffect(state, simulationStates, scoreEvents);
             }
         }
@@ -99,6 +152,8 @@ public class ScoreManager : MonoBehaviour
             }
             if(state != null)
             {
+                effects.Add(new EffectWrapper(state.diceData.CalculateEffect, state));
+
                 state.diceData.CalculateEffect(state, simulationStates, ref totalScore, scoreEvents);
             }
         }
@@ -113,6 +168,8 @@ public class ScoreManager : MonoBehaviour
             }
             if (state != null)
             {
+                effects.Add(new EffectWrapper(state.diceData.AfterCalculateEffect, state));
+
                 state.diceData.AfterCalculateEffect(state, simulationStates, ref totalScore, scoreEvents);
             }
         }
@@ -127,3 +184,5 @@ public class ScoreManager : MonoBehaviour
     }
 
 }
+
+

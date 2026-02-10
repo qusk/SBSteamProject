@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: _Sun
   m_EditorClassIdentifier: Assembly-CSharp::SunDiceAbility
   type: 1
-  sunEffect: 1
+  multiBonusScore: 2
+  plusBonusScore: 0
   abilityName: "\uC36C \uC8FC\uC0AC\uC704"
   weight: 40
   gold: 2

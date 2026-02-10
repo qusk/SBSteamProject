@@ -10,6 +10,7 @@ public class SunDiceAbility : DiceData
 
     public override void OnRuleEffect(DiceState myState, List<DiceState> allDice, List<ScoreEventData> events)
     {
+        usedData.Clear();
         foreach (var dice in allDice)
         {
             if(dice != null && dice.currentType == ScoreManager.DiceType.Odd && !usedData.Contains(dice.diceData))
@@ -17,7 +18,7 @@ public class SunDiceAbility : DiceData
                 dice.diceData.multiBonusScore *= 2;
                 usedData.Add(dice.diceData);
             }   
-        }  
-        events.Add(new ScoreEventData(ScoreEventData.Type.GlobalBuffs, -1, 0, $"Sun! bonusScore x{bonusScore}"));
+        }
+        events.Add(new ScoreEventData(ScoreEventData.Type.GlobalBuffs, -1, 0, $"Sun! x{bonusScore}"));
     }
 }

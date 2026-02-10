@@ -6,10 +6,10 @@ using UnityEngine;
 public class CaptainDiceAbility : DiceData
 {
 
-    int count;
+    int count = 0;
     public override void CalculateEffect(DiceState myState, List<DiceState> allDice, ref int totalScore, List<ScoreEventData> events)
     {
-        count = 0;
+        
         foreach (var dice in allDice)
         {
             if(dice.modifiedValue == myState.modifiedValue)
@@ -21,7 +21,7 @@ public class CaptainDiceAbility : DiceData
 
         totalScore *= count;
         events.Add(new ScoreEventData(ScoreEventData.Type.GlobalBuffs, -1, 0, $"Captain! x{count}"));
-
+        count = 0;
     }
 
 }

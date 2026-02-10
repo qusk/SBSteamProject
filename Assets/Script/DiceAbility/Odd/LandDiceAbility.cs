@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class LandDiceAbility : DiceData
 {
     public int bonusScore = 2;
+    
 
     public override void BeforeCalculateEffect(DiceState myState, List<DiceState> allDice, List<ScoreEventData> events)
     {
@@ -18,5 +19,7 @@ public class LandDiceAbility : DiceData
                 events.Add(new ScoreEventData(ScoreEventData.Type.Multiplier, dice.diceIndex, 0, $"Land! x{bonusScore}"));
             }
         }
+
+        bonusScore = 2;
     }
 }

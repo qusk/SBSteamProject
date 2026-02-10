@@ -10,7 +10,7 @@ public class BamDiceAbility : DiceData
     {
         //´«±Ý º¯ÇÔ
 
-        maxValue = 0;
+        
         foreach (var dice in allDice)
         {
             if(dice.modifiedValue > maxValue) maxValue = dice.modifiedValue;
@@ -20,8 +20,17 @@ public class BamDiceAbility : DiceData
         {
             dice.modifiedValue = maxValue;
             dice.scoreValue = maxValue;
+            dice.change = true;
             events.Add(new ScoreEventData(ScoreEventData.Type.ChangeFace, dice.diceIndex, maxValue, "Change Bam!"));
         }
+        
+        maxValue = 0;
+
+        ChangeModi(myState, allDice, events);
+        
+        
     }
+
+
 
 }

@@ -21,5 +21,7 @@ public class CherryDiceAbility : DiceData
                 }
             }
         }
+
+        bonusScore = 5;
     }
 }

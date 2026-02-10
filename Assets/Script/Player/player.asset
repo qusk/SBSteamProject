@@ -21,8 +21,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   DiceSo:
-  - {fileID: 11400000, guid: 4b64720d23fc19843a6f6e7167793ba4, type: 2}
-  - {fileID: 11400000, guid: 4b64720d23fc19843a6f6e7167793ba4, type: 2}
+  - {fileID: 11400000, guid: 0529fc40f2c45c7419bb17364c53099a, type: 2}
+  - {fileID: 11400000, guid: 734fbeba4fb4dc14a85e60fb2dd2fe33, type: 2}
   - {fileID: 11400000, guid: 4b64720d23fc19843a6f6e7167793ba4, type: 2}
   - {fileID: 11400000, guid: 4b64720d23fc19843a6f6e7167793ba4, type: 2}
   - {fileID: 11400000, guid: 4b64720d23fc19843a6f6e7167793ba4, type: 2}
