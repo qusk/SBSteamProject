@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 576354561323079306}
   m_Layer: 5
   m_Name: buyDice1
-  m_TagString: Untagged
+  m_TagString: BuyDice
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -151,6 +151,7 @@ MonoBehaviour:
   previousParent: {fileID: 0}
   inPotiner: 0
   DiceInfo: {fileID: 0}
+  index: 0
 --- !u!1 &5151401565996775444
 GameObject:
   m_ObjectHideFlags: 0

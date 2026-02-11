@@ -39,6 +39,23 @@ public class Player : MonoBehaviour
 
     }
 
+    public void PushPlayerDices(DiceData Dice, int index)
+    {
+        //if (player.DiceSo[index] == null)
+        //{
+            player.DiceSo[index] = Dice;
+        //}
+
+    }
+
+    public void PullPlayerDices(DiceData Dice, int index)
+    {
+        if (player.DiceSo[index] == Dice)
+        {
+            player.DiceSo[index] = null;
+        }
+    }
+
     public void PushPlayerItems(ItemSo item)
     {
         for (int i = 0; i < player.itemSo.Length; i++)

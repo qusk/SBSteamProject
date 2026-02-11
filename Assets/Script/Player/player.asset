@@ -21,14 +21,14 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   DiceSo:
-  - {fileID: 11400000, guid: 33b6fca4d8cbe5d4f87e0d19cba77511, type: 2}
-  - {fileID: 11400000, guid: 33b6fca4d8cbe5d4f87e0d19cba77511, type: 2}
-  - {fileID: 11400000, guid: 3e68dcdc3f7a6da4eb1fc695762cfebb, type: 2}
   - {fileID: 11400000, guid: 4b64720d23fc19843a6f6e7167793ba4, type: 2}
+  - {fileID: 11400000, guid: 4a53516af0d0f2d4f8ffb4816a752792, type: 2}
+  - {fileID: 11400000, guid: bbefd29e5bebaa54c8b8a4a6c628e981, type: 2}
   - {fileID: 11400000, guid: 4b64720d23fc19843a6f6e7167793ba4, type: 2}
+  - {fileID: 11400000, guid: dbd38cce60da8be43864b31507581bea, type: 2}
   - {fileID: 11400000, guid: 4b64720d23fc19843a6f6e7167793ba4, type: 2}
   heart: 0
-  gold: 94
+  gold: 55
   roundScore: 1234
   currentRound: 3
   bestRound: 7

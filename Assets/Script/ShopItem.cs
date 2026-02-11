@@ -62,12 +62,13 @@ public class ShopItem : MonoBehaviour
         BuyDice slotChildDice = null;
         
 
-        for (int i = 0; i < myDicePanel.transform.childCount; i++)
+        for (int i = myDicePanel.transform.childCount - 1; i >= 0; i--)
         {
-            slotChildDice = myDicePanel.transform.GetChild(i).GetComponentInChildren<BuyDice>();
+            slotChildDice = myDicePanel.transform.GetChild(myDicePanel.transform.childCount - 1 - i).GetComponentInChildren<BuyDice>();
+            Debug.Log(slotChildDice);
             if (Player.instance.player.DiceSo[i] == null)
             {
-                Player.instance.PushPlayerDices(Player.instance.defaultDice);
+                Player.instance.PushPlayerDices(Player.instance.defaultDice,i);
             }
             slotChildDice.UpdateDiceInfo(Player.instance.player.DiceSo[i], true);
 
