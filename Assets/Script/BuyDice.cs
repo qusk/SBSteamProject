@@ -1,3 +1,4 @@
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -46,7 +47,10 @@ public class BuyDice : BuyThings, IPointerClickHandler, IEndDragHandler
         if (eventData.button == PointerEventData.InputButton.Right && bought)
         {
             Debug.Log(index);
-            DescManager.instance.SellGold(DiceInfo.gold - 1);
+            if(GameManager.instance.hasShoes) 
+                DescManager.instance.SellGold(DiceInfo.gold);
+            else
+                DescManager.instance.SellGold(DiceInfo.sell);
             Player.instance.PullPlayerDices(DiceInfo, index);
             Destroy(gameObject);
         }
@@ -58,7 +62,7 @@ public class BuyDice : BuyThings, IPointerClickHandler, IEndDragHandler
         if (!bought)
         {
             if (!transform.parent.CompareTag("MySlot") || transform.parent == canvas ||
-                Player.instance.player.gold - DiceInfo.gold < 0)
+                GameManager.instance.gold - DiceInfo.gold < 0)
             {
                 transform.SetParent(previousParent);
                 rect.position = previousParent.GetComponent<RectTransform>().position;

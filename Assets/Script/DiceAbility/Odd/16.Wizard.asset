@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 283c23404693f1c43b86f1cc7ba9b7c7, type: 3}
+  m_Name: 16.Wizard
+  m_EditorClassIdentifier: Assembly-CSharp::WizardDiceAbility
+  type: 1
+  multiBonusScore: 1
+  plusBonusScore: 0
+  diceNum: 16
+  abilityName: "\uC704\uC800\uB4DC \uC8FC\uC0AC\uC704"
+  weight: 50
+  gold: 1
+  sell: 0
+  Desc: "[\uC704\uC800\uB4DC \uC8FC\uC0AC\uC704]\n\u2605\n\n\uB8F0\uC0C1 \uB208\uAE08\uC774
+    \uD640\uC218\uC778 \uC8FC\uC0AC\uC704\uB97C \uC0DD\uC131\uD55C\uB2E4.\n\n\uAD6C\uB9E4
+    \uAE08\uC561: 1Gold"
+  skin: {fileID: 11400000, guid: 856b2499537cf9b459166bfcb141ca9e, type: 2}

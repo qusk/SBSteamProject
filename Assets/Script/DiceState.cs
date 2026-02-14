@@ -1,5 +1,6 @@
 
 using JetBrains.Annotations;
+using System.Data;
 using UnityEditor;
 using UnityEngine;
 
@@ -48,4 +49,5 @@ public class DiceState
         }
         this.isForceOdd = false;
     }
+
 }

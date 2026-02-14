@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     public int heart = 3;
     public int gold = 50;
 
+    public bool hasShoes = false;
+    public DiceAbilitys dices;
     public DiceManager diceManager;
     public int maxRerollCount = 1;
     public int currentScore = 0;

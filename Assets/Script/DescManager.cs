@@ -26,10 +26,10 @@ public class DescManager : MonoBehaviour
         }
     }
 
-    public void UpdateInfo(PlayerSo player)
+    private void Start()
     {
-        currentRound.text = "¶ó¿îµå Á¡¼ö: " + player.currentRound.ToString();
-        textGold.text = "°ñµå: " + player.gold.ToString();
+        currentRound.text = "¶ó¿îµå Á¡¼ö: " + GameManager.instance.currentRound.ToString();
+        textGold.text = "°ñµå: " + GameManager.instance.gold.ToString();
     }
 
     public void SelectDesc(GameObject selectDesc)
@@ -50,13 +50,13 @@ public class DescManager : MonoBehaviour
 
     public void BuyGold(int gold)
     {
-        Player.instance.player.gold -= gold;
-        textGold.text = "°ñµå: " + Player.instance.player.gold.ToString();
+        GameManager.instance.gold -= gold;
+        textGold.text = "°ñµå: " + GameManager.instance.gold.ToString();
     }
 
     public void SellGold(int gold)
     {
-        Player.instance.player.gold += gold;
-        textGold.text = "°ñµå: " + Player.instance.player.gold.ToString();
+        GameManager.instance.gold += gold;
+        textGold.text = "°ñµå: " + GameManager.instance.gold.ToString();
     }
 }

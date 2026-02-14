@@ -141,31 +141,11 @@ public class ShopItem : MonoBehaviour
                 buyDice[i].transform.GetComponent<RectTransform>().localPosition = Vector3.zero;
             }
 
-
             randomIndex = RandomDice();
 
             buyDice[i].UpdateDiceInfo(DiceDB[randomIndex], false);
-            
-            //if (usedIndex.Count < DiceDB.Length)
-            //{
-            //    if (!usedIndex.Contains(randomIndex))
-            //    {
-            //        buyDice[i].UpdateDiceInfo(DiceDB[randomIndex], false);
-            //        usedIndex.Add(randomIndex);
-            //    }
-            //    else
-            //    {
-            //        i--;
-            //    }
-            //}
-            //else if(usedIndex.Count >= DiceDB.Length)
-            //{
-            //    buyDice[i].UpdateDiceInfo(DiceDB[randomIndex], false);
-            //}
 
         }
-        //usedIndex.Clear();
-
     }
 
     void ReRollItem()

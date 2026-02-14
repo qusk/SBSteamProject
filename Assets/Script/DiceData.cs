@@ -11,9 +11,11 @@ public class DiceData : ScriptableObject
     public int multiBonusScore = 1;
     public int plusBonusScore = 0;
     protected bool reroll = true;
+    public int diceNum;
     public string abilityName;
     public int weight;
     public int gold;
+    public int sell;
     
     // public bool Reroll { get => reroll; set => reroll = value; }
     

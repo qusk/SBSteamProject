@@ -1590,10 +1590,15 @@ MonoBehaviour:
   targetScore: 50
   maxLives: 1
   currentLives: 0
+  heart: 3
+  gold: 50
+  hasShoes: 0
+  dices: {fileID: 11400000, guid: f2ea0edc6ebbc704f87f6da0a1eefcbc, type: 2}
+  diceManager: {fileID: 1601443936}
   maxRerollCount: 1
   currentScore: 0
   bestScore: 0
-  diceManager: {fileID: 1601443936}
+  hasUsedPlusReroll: 0
 --- !u!4 &669844171
 Transform:
   m_ObjectHideFlags: 0
@@ -3806,6 +3811,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f3a995d791c18b489d7720d69c2cbe5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DIceController
+  isTestMode: 0
+  testAbilities: []
+  testDiceValues: 000000000000000000000000000000000000000000000000
   rollArea: {fileID: 812174709}
   panelDiceScript:
   - {fileID: 258712858}
