@@ -79,6 +79,7 @@ public class UiController : MonoBehaviour
         GameManager.instance.OnScoreChanged += UpdateScoreUi;
         GameManager.instance.OnLivesChanged += UpdateLivesUi;
         GameManager.instance.OnRoundAndGoalChanged += UpdateRoundAndGoalUi;
+        GameManager.instance.OnRerollCountChanged += UPdateRerollUi;
     }
 
     private void UnSubscribeToEvents()
@@ -87,6 +88,7 @@ public class UiController : MonoBehaviour
         GameManager.instance.OnScoreChanged -= UpdateScoreUi;
         GameManager.instance.OnLivesChanged -= UpdateLivesUi;
         GameManager.instance.OnRoundAndGoalChanged -= UpdateRoundAndGoalUi;
+        GameManager.instance.OnRerollCountChanged -= UPdateRerollUi;
     }
 
     private void UpdateGoldUi(int gold)
@@ -129,7 +131,7 @@ public class UiController : MonoBehaviour
 
     private void UpdateRoundAndGoalUi(int round, int targetScore)
     { 
-        Debug.Log($"[UI] 라운드 갱신 시도: Round {round}, Target {targetScore}"); // ★ 이 로그가 뜨는지 확인!
+        Debug.Log($"[UI] 라운드 갱신 시도: Round {round}, Target {targetScore}");
         if (roundInfoText != null)
         {
             roundInfoText.SetText("{0}", round);
@@ -229,7 +231,7 @@ public class UiController : MonoBehaviour
         }
     }
 
-    public void UpdateRerollInfo(int count)
+    public void UPdateRerollUi(int count)
     {
         if(rerollText != null)
         {

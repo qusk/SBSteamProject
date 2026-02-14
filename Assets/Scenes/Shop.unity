@@ -529,6 +529,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91bd64e0297b2244bbf88e2d6c5331e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemSlot
+  slotIndex: 5
 --- !u!114 &158216086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2165,6 +2166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91bd64e0297b2244bbf88e2d6c5331e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemSlot
+  slotIndex: 0
 --- !u!114 &417452822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2314,22 +2316,43 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShopItem
   itemDB:
-  - {fileID: 11400000, guid: 021a55a49928b5a43afcd73ac9a28e8b, type: 2}
   - {fileID: 11400000, guid: 0a638f1b9a484b54190abf67736c33e2, type: 2}
+  - {fileID: 11400000, guid: 021a55a49928b5a43afcd73ac9a28e8b, type: 2}
+  - {fileID: 11400000, guid: 36154c666ea22724982d128edf0e137b, type: 2}
   - {fileID: 11400000, guid: 7c460ca932cd82446b81605402676d4b, type: 2}
+  - {fileID: 11400000, guid: 9f1748e4440b43847a5803cf1a89e6f6, type: 2}
+  - {fileID: 11400000, guid: fc2aeb0d54a133f469d89cc88f4252e2, type: 2}
   DiceDB:
-  - {fileID: 11400000, guid: 1825aa418ee355c4e89dc42f257584d7, type: 2}
   - {fileID: 11400000, guid: 4b64720d23fc19843a6f6e7167793ba4, type: 2}
+  - {fileID: 11400000, guid: 1825aa418ee355c4e89dc42f257584d7, type: 2}
   - {fileID: 11400000, guid: 33b6fca4d8cbe5d4f87e0d19cba77511, type: 2}
-  - {fileID: 11400000, guid: af172d08c85afa34fa7094152de468e1, type: 2}
   - {fileID: 11400000, guid: d85d0fbb8eb846840959456dadbb3d2b, type: 2}
+  - {fileID: 11400000, guid: af172d08c85afa34fa7094152de468e1, type: 2}
   - {fileID: 11400000, guid: 25264d68415b27543aec5816f4f8bcd1, type: 2}
   - {fileID: 11400000, guid: dbd38cce60da8be43864b31507581bea, type: 2}
   - {fileID: 11400000, guid: 2218c5b2262e61c42998c15f1ab26ceb, type: 2}
-  - {fileID: 11400000, guid: 208efe1781fe98f4cab9dfab4eaeff53, type: 2}
+  - {fileID: 11400000, guid: 3277e2ae45ba67244b90ea71b4079c28, type: 2}
   - {fileID: 11400000, guid: 3e68dcdc3f7a6da4eb1fc695762cfebb, type: 2}
   - {fileID: 11400000, guid: 7be981e6be2e94f49a4792c354b6c05d, type: 2}
-  - {fileID: 11400000, guid: 3277e2ae45ba67244b90ea71b4079c28, type: 2}
+  - {fileID: 11400000, guid: 208efe1781fe98f4cab9dfab4eaeff53, type: 2}
+  - {fileID: 11400000, guid: d042d7e7a5df7bf438c218663220297c, type: 2}
+  - {fileID: 11400000, guid: 4a53516af0d0f2d4f8ffb4816a752792, type: 2}
+  - {fileID: 11400000, guid: f6e1455140aabe54dbab7d288ccf7035, type: 2}
+  - {fileID: 11400000, guid: a758304e389a93f4ab1277099afc2a44, type: 2}
+  - {fileID: 11400000, guid: babb89bfc54f77141893f253e091fa03, type: 2}
+  - {fileID: 11400000, guid: fef8e39bfb53ecd4e8d246001872c2b1, type: 2}
+  - {fileID: 11400000, guid: bb8ada4985627ac499a356462194a472, type: 2}
+  - {fileID: 11400000, guid: 1ca4a95b89d09c1489ee53d2fa80c1a1, type: 2}
+  - {fileID: 11400000, guid: 0529fc40f2c45c7419bb17364c53099a, type: 2}
+  - {fileID: 11400000, guid: bbefd29e5bebaa54c8b8a4a6c628e981, type: 2}
+  - {fileID: 11400000, guid: 734fbeba4fb4dc14a85e60fb2dd2fe33, type: 2}
+  - {fileID: 11400000, guid: f7e9dc4bdd8600a4bb92500bbc4e717e, type: 2}
+  - {fileID: 11400000, guid: e3869276cba878047af376fe3cd215d6, type: 2}
+  - {fileID: 11400000, guid: 514c84c45de1438418cf43d2c9667539, type: 2}
+  - {fileID: 11400000, guid: 5baeb8cf15bb16a458f84bec49a09535, type: 2}
+  - {fileID: 11400000, guid: d3dd396b55ec34d45b888b0f1f53de6a, type: 2}
+  - {fileID: 11400000, guid: 5c0d441161a57ab4caf8d77fff2edbb3, type: 2}
+  - {fileID: 11400000, guid: 8401105c0511f9549923de21a0dda57d, type: 2}
   itemSlots:
   - {fileID: 819502425}
   - {fileID: 1755281605}
@@ -2653,6 +2676,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91bd64e0297b2244bbf88e2d6c5331e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemSlot
+  slotIndex: 4
 --- !u!114 &515845063
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3129,6 +3153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91bd64e0297b2244bbf88e2d6c5331e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemSlot
+  slotIndex: 0
 --- !u!1 &632260753
 GameObject:
   m_ObjectHideFlags: 0
@@ -3217,6 +3242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91bd64e0297b2244bbf88e2d6c5331e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemSlot
+  slotIndex: 0
 --- !u!1001 &633289727
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3944,6 +3970,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91bd64e0297b2244bbf88e2d6c5331e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemSlot
+  slotIndex: 0
 --- !u!114 &766582854
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4245,6 +4272,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91bd64e0297b2244bbf88e2d6c5331e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemSlot
+  slotIndex: 0
 --- !u!114 &819502426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4545,6 +4573,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91bd64e0297b2244bbf88e2d6c5331e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemSlot
+  slotIndex: 0
 --- !u!114 &859169230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4813,6 +4842,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91bd64e0297b2244bbf88e2d6c5331e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemSlot
+  slotIndex: 0
 --- !u!1 &944402631
 GameObject:
   m_ObjectHideFlags: 0
@@ -5272,6 +5302,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91bd64e0297b2244bbf88e2d6c5331e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemSlot
+  slotIndex: 0
 --- !u!1001 &1022264238
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5443,6 +5474,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91bd64e0297b2244bbf88e2d6c5331e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemSlot
+  slotIndex: 0
 --- !u!114 &1022778231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6418,6 +6450,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91bd64e0297b2244bbf88e2d6c5331e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemSlot
+  slotIndex: 2
 --- !u!114 &1402687455
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6544,6 +6577,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91bd64e0297b2244bbf88e2d6c5331e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemSlot
+  slotIndex: 0
 --- !u!1 &1426606529
 GameObject:
   m_ObjectHideFlags: 0
@@ -6595,6 +6629,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91bd64e0297b2244bbf88e2d6c5331e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemSlot
+  slotIndex: 1
 --- !u!114 &1426606532
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7548,6 +7583,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91bd64e0297b2244bbf88e2d6c5331e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemSlot
+  slotIndex: 0
 --- !u!114 &1544964292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7748,6 +7784,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91bd64e0297b2244bbf88e2d6c5331e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemSlot
+  slotIndex: 0
 --- !u!114 &1596938022
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7874,6 +7911,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91bd64e0297b2244bbf88e2d6c5331e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemSlot
+  slotIndex: 0
 --- !u!1 &1626927277
 GameObject:
   m_ObjectHideFlags: 0
@@ -7909,10 +7947,13 @@ MonoBehaviour:
   currentLives: 0
   heart: 3
   gold: 50
+  hasShoes: 0
+  dices: {fileID: 11400000, guid: f2ea0edc6ebbc704f87f6da0a1eefcbc, type: 2}
+  diceManager: {fileID: 0}
   maxRerollCount: 1
   currentScore: 0
   bestScore: 0
-  diceManager: {fileID: 0}
+  hasUsedPlusReroll: 0
 --- !u!4 &1626927279
 Transform:
   m_ObjectHideFlags: 0
@@ -8289,6 +8330,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91bd64e0297b2244bbf88e2d6c5331e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemSlot
+  slotIndex: 0
 --- !u!114 &1741009782
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8480,6 +8522,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91bd64e0297b2244bbf88e2d6c5331e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemSlot
+  slotIndex: 0
 --- !u!114 &1755281606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8569,6 +8612,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91bd64e0297b2244bbf88e2d6c5331e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemSlot
+  slotIndex: 3
 --- !u!114 &1782846822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9118,6 +9162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91bd64e0297b2244bbf88e2d6c5331e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemSlot
+  slotIndex: 0
 --- !u!114 &1887559733
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9549,6 +9594,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91bd64e0297b2244bbf88e2d6c5331e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemSlot
+  slotIndex: 0
 --- !u!1 &2025466013
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,6 +15,7 @@ public class ScoreVisualizer : MonoBehaviour
     public GameObject floatingText;
     public Transform effectCanvas;
 
+    private int _currentDisplayScore = 0;
     private void Awake()
     {
         if (instance == null) instance = this;
@@ -22,7 +23,10 @@ public class ScoreVisualizer : MonoBehaviour
 
     public IEnumerator PlayScoreEventSequence(Dice[] uiDice, List<ScoreEventData> scoreEvent)
     {
-        
+
+        _currentDisplayScore = 0;
+        finalScoreText.text = "0";
+
         foreach (var evt in scoreEvent)
         {
             Dice targetDice = null;
@@ -67,7 +71,9 @@ public class ScoreVisualizer : MonoBehaviour
 
                     if(lastTween != null)
                     {
+                        Debug.Log("event End");
                         lastTween.WaitForCompletion();
+                        //yield return new WaitForSeconds(1.0f);
                     }
                     else
                     {
@@ -119,8 +125,8 @@ public class ScoreVisualizer : MonoBehaviour
 
     public void UpdateScoreBoard(int targetValue)
     {
-        int originalValue = 0;
-        int.TryParse(finalScoreText.text, out originalValue);
+        int originalValue = _currentDisplayScore;
+        _currentDisplayScore = targetValue;
 
         DOVirtual.Int(originalValue, targetValue, 0.3f, (x) =>
         {

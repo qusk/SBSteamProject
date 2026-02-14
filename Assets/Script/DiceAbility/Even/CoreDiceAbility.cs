@@ -6,8 +6,18 @@ public class CoreDiceAbility : DiceData
 {
     public int bonusScore = 3;
 
+
     public override void AfterCalculateEffect(DiceState myState, List<DiceState> allDice, ref int totalScore, List<ScoreEventData> events)
     {
+        foreach(var dice in allDice)
+        {
+            if(dice != null && dice.diceIndex < myState.diceIndex && dice.currentType == ScoreManager.DiceType.Even)
+            {
+                if (dice.diceData is CoreDiceAbility) continue;
 
+                dice.diceData.CalculateEffect(myState, allDice, ref totalScore, events);
+                dice.diceData.AfterCalculateEffect(myState, allDice, ref totalScore, events);
+            }
+        }
     }
 }

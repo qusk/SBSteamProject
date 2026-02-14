@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cc3db5170b274742888a81be1ecdcee, type: 3}
+  m_Name: WitchDice
+  m_EditorClassIdentifier: Assembly-CSharp::DiceSkin
+  sprites:
+  - {fileID: 21300000, guid: f6bf1fbf176786a41a36ebc9af28b09a, type: 3}
+  - {fileID: 21300000, guid: e1edecacd54736b4897eb1841111161a, type: 3}
+  - {fileID: 21300000, guid: 338b1002cfe8924459da7b516dc24ae6, type: 3}
+  - {fileID: 21300000, guid: 090bda58d4dc60e43a10a9f1564f6313, type: 3}
+  - {fileID: 21300000, guid: c785c074e360e3d4a924e4edeabb74cd, type: 3}
+  - {fileID: 21300000, guid: a0b237441b4f3d542b0c9065d5421f5f, type: 3}

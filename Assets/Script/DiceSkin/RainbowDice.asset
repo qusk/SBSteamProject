@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cc3db5170b274742888a81be1ecdcee, type: 3}
+  m_Name: RainbowDice
+  m_EditorClassIdentifier: Assembly-CSharp::DiceSkin
+  sprites:
+  - {fileID: 6943236125297806589, guid: 81b75b98b38267546bff5beca8631a3f, type: 3}
+  - {fileID: 32540527438644761, guid: 7737c3743a3c6f24fadacc359583c73f, type: 3}
+  - {fileID: 1435492604304140720, guid: add30cc9a63d60f43b28916d5b71328d, type: 3}
+  - {fileID: 6643361590430882976, guid: 375b0d6b7282de0498c917123fabcdb9, type: 3}
+  - {fileID: 6274088715823357923, guid: 6516b67cffecb9a4fb1197a1a5542d5f, type: 3}
+  - {fileID: 2241592290226753486, guid: d81cd45fa28a8be45927504f1a15463f, type: 3}

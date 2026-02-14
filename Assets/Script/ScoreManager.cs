@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -18,6 +19,7 @@ public class ScoreManager : MonoBehaviour
     {
         List<DiceState> simulationStates = new List<DiceState>();
         List<ScoreEventData> scoreEvents = new List<ScoreEventData>();
+        int totalScore = 0;
 
         for(int i = 0; i < uiDice.Length; i++)
         {
@@ -28,8 +30,7 @@ public class ScoreManager : MonoBehaviour
                 {
                     continue;
                 }
-                int originalValue = uiDice[i].MyState.originalValue;
-                simulationStates.Add(new DiceState(data, i, originalValue));
+                simulationStates.Add(new DiceState(data, i, uiDice[i].MyState.originalValue));
             }
         }
 
@@ -37,50 +38,38 @@ public class ScoreManager : MonoBehaviour
         // 1. 룰상 효과
         foreach (var state in simulationStates)
         {
-            if (state != null)
-            {
-                state.diceData.OnRuleEffect(state, simulationStates, scoreEvents);
-            }
+
+            if (state == null || state.isIgnored) continue;
+            state.diceData.OnRuleEffect(state, simulationStates, scoreEvents);
         }
 
         // 2. 굴림 효과
         foreach (var state in simulationStates)
         {
-            if (state != null)
-            {
-                state.diceData.OnRollEffect(state, simulationStates, scoreEvents);
-            }
+
+            if (state == null || state.isIgnored) continue;
+            state.diceData.OnRollEffect(state, simulationStates, scoreEvents);
         }
 
-        // 3. 점수 계산 전 효과
+        // 3. 계산 시/중 효과
+        
         foreach (var state in simulationStates)
         {
-            if (state != null)
+            if(state == null || state.isIgnored)
             {
-                state.diceData.BeforeCalculateEffect(state, simulationStates, scoreEvents);
+                continue;
             }
-        }
 
-        // 4. 점수 계산
-        int totalScore = 0;
-        foreach (var state in simulationStates)
-        {
             totalScore += state.scoreValue;
-            scoreEvents.Add(new ScoreEventData(
-                ScoreEventData.Type.AddScore,
-                state.diceIndex,
-                totalScore,
-                $"+{state.scoreValue}"
-                ));
+            scoreEvents.Add(new ScoreEventData(ScoreEventData.Type.AddScore, state.diceIndex, totalScore, $"+{state.scoreValue}"));
+            state.diceData.CalculateEffect(state, simulationStates, ref totalScore, scoreEvents);
         }
 
-        // 5. 점수 계산 후 효과
+        // 4. 점수 계산 후 효과
         foreach (var state in simulationStates)
         {
-            if (state != null)
-            {
-                state.diceData.AfterCalculateEffect(state, simulationStates, ref totalScore, scoreEvents);
-            }
+            if (state == null || state.isIgnored) continue;
+            state.diceData.AfterCalculateEffect(state, simulationStates, ref totalScore, scoreEvents);
         }
 
         scoreEvents.Add(new ScoreEventData(
@@ -93,3 +82,5 @@ public class ScoreManager : MonoBehaviour
     }
 
 }
+
+

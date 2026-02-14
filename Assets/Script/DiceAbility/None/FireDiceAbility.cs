@@ -6,8 +6,8 @@ public class FireDiceAbility : DiceData
 {
     public int bonusScore = 3;
 
-    public override void BeforeCalculateEffect(DiceState myState, List<DiceState> allDice, List<ScoreEventData> scoreEvent)
+    public override void CalculateEffect(DiceState myState, List<DiceState> allDice, ref int totalScore, List<ScoreEventData> scoreEvent)
     {
-        myState.scoreValue *= bonusScore;
+        totalScore *= bonusScore;
     }
 }

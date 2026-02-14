@@ -17,10 +17,10 @@ public class ScoreEventData
     public int value;          // 변동된 값
     public string desc;        // +3과 같은 연출용 텍스트
     
-    public ScoreEventData(Type type, int index, int value, string desc)
+    public ScoreEventData(Type type, int targetIndex, int value, string desc)
     {
         this.type = type;
-        targetIndex = index;
+        this.targetIndex = targetIndex;
         this.value = value;
         this.desc = desc;
     }

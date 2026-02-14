@@ -1,0 +1,49 @@
+using JetBrains.Annotations;
+using System.Collections.Generic;
+using UnityEngine;
+
+[CreateAssetMenu(fileName = "Ability", menuName = "DiceAbility/mirror")]
+public class MirrorDiceAbility : DiceData
+{
+
+    public override void OnRuleEffect(DiceState myState, List<DiceState> allDice, List<ScoreEventData> events)
+    {
+        if(myState.diceIndex > 0)
+        {
+            allDice[myState.diceIndex - 1].diceData.OnRuleEffect(myState, allDice, events);
+        }
+    }
+
+    public override void OnRollEffect(DiceState myState, List<DiceState> allDice, List<ScoreEventData> events)
+    {
+        if(myState.diceIndex > 0)
+        {
+            allDice[myState.diceIndex - 1].diceData.OnRollEffect(myState, allDice, events);
+        }
+    }
+
+    public override void CalculateEffect(DiceState myState, List<DiceState> allDice, ref int score, List<ScoreEventData> events)
+    {
+
+        //if (ScoreManager.instance.effects.Count > 0)
+        //{
+        //    var lastEffect = ScoreManager.instance.effects[ScoreManager.instance.effects.Count - 2];
+        //    lastEffect.Execute(allDice, events);
+        //}
+
+        if(myState.diceIndex > 0)
+        {
+            var targetDice = allDice[myState.diceIndex - 1];
+            targetDice.diceData.CalculateEffect(myState, allDice, ref score, events);
+        }
+    }
+
+    public override void AfterCalculateEffect(DiceState myState, List<DiceState> allDice, ref int score, List<ScoreEventData> events)
+    {
+        if(myState.diceIndex > 0)
+        {
+            allDice[myState.diceIndex - 1].diceData.AfterCalculateEffect(myState, allDice, ref score, events);
+        }
+    }
+
+}

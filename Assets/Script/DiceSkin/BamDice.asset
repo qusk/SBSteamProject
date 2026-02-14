@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cc3db5170b274742888a81be1ecdcee, type: 3}
+  m_Name: BamDice
+  m_EditorClassIdentifier: Assembly-CSharp::DiceSkin
+  sprites:
+  - {fileID: 21300000, guid: bb132dac8fd038949bc345afd02f6d07, type: 3}
+  - {fileID: 21300000, guid: 8ed549f24f68c83458abfe41d8786aed, type: 3}
+  - {fileID: 21300000, guid: db83bf51bd6e78547b3f9fb14fdee24c, type: 3}
+  - {fileID: 21300000, guid: 75a3a6c8501c3e043afb6b5666e38605, type: 3}
+  - {fileID: 21300000, guid: 15aa7be0bf5cfe8448f44eb38cadbc9a, type: 3}
+  - {fileID: 21300000, guid: 39b0d35c230a8ff41b4163f88e8c7c70, type: 3}

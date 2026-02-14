@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public event Action<int> OnScoreChanged;
     public event Action<int> OnLivesChanged;
     public event Action<int, int> OnRoundAndGoalChanged;
+    public event Action<int> OnRerollCountChanged;
 
     [Header("테스트용 설정")]
     public int currentRound = 1;
@@ -25,17 +26,29 @@ public class GameManager : MonoBehaviour
     public int heart = 3;
     public int gold = 50;
 
+    public bool hasShoes = false;
+    public DiceAbilitys dices;
+    public DiceManager diceManager;
     public int maxRerollCount = 1;
-    private int _currentRerollCount;
-    private bool _isFirstRoll = true;
-
     public int currentScore = 0;
     public int bestScore = 0;
-
-    public DiceManager diceManager;
+    public bool hasUsedPlusReroll = false;
 
     private List<DiceData> _lastDiceDatas;
     private List<int> _lastValues;
+    private bool _isFirstRoll = true;
+    private int _currentRerollCount;
+
+    public int CurrentRerollCount
+    {
+        get => _currentRerollCount;
+        set
+        {
+            _currentRerollCount = value;
+            OnRerollCountChanged?.Invoke(_currentRerollCount);
+        }
+    }
+
 
     private void Awake()
     {
@@ -66,6 +79,7 @@ public class GameManager : MonoBehaviour
         OnScoreChanged?.Invoke(currentScore);
         OnLivesChanged?.Invoke(currentLives);
         OnRoundAndGoalChanged?.Invoke(currentRound, targetScore);
+        OnRerollCountChanged?.Invoke(_currentRerollCount);
     }
 
     public void AddGold(int gold)
@@ -96,11 +110,12 @@ public class GameManager : MonoBehaviour
         _isFirstRoll = true;
         _currentRerollCount = maxRerollCount;
         currentScore = 0;
+        hasUsedPlusReroll = false;
 
         NotifyAllUI();
 
         UiController.instance.HideAllPanels();
-        UiController.instance.UpdateRerollInfo(_currentRerollCount);
+        UiController.instance.UPdateRerollUi(_currentRerollCount);
         UiController.instance.SetRollBtnInteractable(true);
         UiController.instance.SetConfirmBtnInteratable(false);
 
@@ -117,6 +132,13 @@ public class GameManager : MonoBehaviour
         if (UiController.instance.rollBtn.interactable == false) return;
 
         UiController.instance.SetRollBtnInteractable(false);
+        UiController.instance.rollBtn.interactable = false;
+
+        for (int i = 0; i < diceManager.panelDiceScript.Length; i++)
+        {
+            diceManager.panelDiceScript[i].MyState.diceData.multiBonusScore = 1;
+            diceManager.panelDiceScript[i].MyState.diceData.plusBonusScore = 0;
+        }
 
         if (_isFirstRoll)
         {
@@ -131,7 +153,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("다시 굴리기");
         }
 
-        UiController.instance.UpdateRerollInfo(_currentRerollCount);
+        UiController.instance.UPdateRerollUi(_currentRerollCount);
         if(!_isFirstRoll && _currentRerollCount <= 0)
         {
             UiController.instance.SetRollBtnInteractable(false);

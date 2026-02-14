@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cc3db5170b274742888a81be1ecdcee, type: 3}
+  m_Name: MonoDice
+  m_EditorClassIdentifier: Assembly-CSharp::DiceSkin
+  sprites:
+  - {fileID: -6728775648502522704, guid: c27d7cb66f97b7f4691c2ed50634314a, type: 3}
+  - {fileID: -1113768413280469179, guid: 4730bf38ba8c25148961b69e2b1d681b, type: 3}
+  - {fileID: -948762779750004947, guid: a79223921552d0541ac1908eea317033, type: 3}
+  - {fileID: -2348909598356786539, guid: fccc678f36df23045b0d4381aee57c4d, type: 3}
+  - {fileID: -5237509278669055430, guid: 01eb115838b01e04db8eae24a8378ea7, type: 3}
+  - {fileID: 8805323462761352010, guid: 2fc718f06c818a34292d976a212e71d5, type: 3}

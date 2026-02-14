@@ -9,6 +9,7 @@ TagManager:
   - Scroll
   - Synergy
   - Inventory
+  - BuyDice
   layers:
   - Default
   - TransparentFX

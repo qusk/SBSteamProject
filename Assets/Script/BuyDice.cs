@@ -1,3 +1,4 @@
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -6,6 +7,7 @@ using UnityEngine.UI;
 public class BuyDice : BuyThings, IPointerClickHandler, IEndDragHandler
 {
     public DiceData DiceInfo;
+    public int index;
 
     public override void OnPointerEnter() { base.OnPointerEnter(); }
 
@@ -21,6 +23,15 @@ public class BuyDice : BuyThings, IPointerClickHandler, IEndDragHandler
         img.sprite = data.skin.GetSprite(1);
         Desc.text = data.Desc;
         bought = buy;
+        index = GetComponentInParent<ItemSlot>().slotIndex;
+    }
+
+    public void ChangeDiceInfo(DiceData data)
+    {
+        DiceInfo = data;
+        img.sprite = data.skin.GetSprite(1);
+        Desc.text = data.Desc;
+        Player.instance.PushPlayerDices(data, index);
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -35,36 +46,57 @@ public class BuyDice : BuyThings, IPointerClickHandler, IEndDragHandler
         }
         if (eventData.button == PointerEventData.InputButton.Right && bought)
         {
-            DescManager.instance.SellGold(DiceInfo.gold - 1);
-            Player.instance.PullPlayerDices(DiceInfo);
+            Debug.Log(index);
+            if(GameManager.instance.hasShoes) 
+                DescManager.instance.SellGold(DiceInfo.gold);
+            else
+                DescManager.instance.SellGold(DiceInfo.sell);
+            Player.instance.PullPlayerDices(DiceInfo, index);
             Destroy(gameObject);
         }
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        GameObject otherObject = eventData.pointerCurrentRaycast.gameObject;
         if (!bought)
         {
             if (!transform.parent.CompareTag("MySlot") || transform.parent == canvas ||
-                Player.instance.player.gold - DiceInfo.gold < 0)
+                GameManager.instance.gold - DiceInfo.gold < 0)
             {
                 transform.SetParent(previousParent);
                 rect.position = previousParent.GetComponent<RectTransform>().position;
             }
             else
             {
+                index = GetComponentInParent<ItemSlot>().slotIndex;
                 bought = !bought;
                 DescManager.instance.BuyGold(DiceInfo.gold);
-                Player.instance.PushPlayerDices(DiceInfo);
+                Player.instance.PushPlayerDices(DiceInfo,index);
             }
         }
         else
         {
-            if (transform.parent == canvas || !transform.parent.CompareTag("MySlot"))
+            if (otherObject == null)
             {
-                transform.SetParent(previousParent);
-                rect.position = previousParent.GetComponent<RectTransform>().position;
             }
+            if (otherObject.CompareTag("BuyDice"))
+            {
+                DiceData tempDiceInfo = otherObject.GetComponent<BuyDice>().DiceInfo;
+                otherObject.GetComponent<BuyDice>().ChangeDiceInfo(DiceInfo);
+                ChangeDiceInfo(tempDiceInfo);
+            }
+            else if (transform.parent == canvas || !transform.parent.CompareTag("MySlot"))
+            {
+            }
+            else
+            {
+                index = GetComponentInParent<ItemSlot>().slotIndex;
+                Player.instance.PushPlayerDices(DiceInfo, index);
+                return;
+            }
+            transform.SetParent(previousParent);
+            rect.position = previousParent.GetComponent<RectTransform>().position;
         }
 
         canvasGroup.alpha = 1.0f;

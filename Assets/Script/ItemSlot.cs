@@ -7,6 +7,7 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     
     Image image;
     RectTransform rect;
+    public int slotIndex;
 
     void Awake()
     {

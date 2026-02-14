@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cc3db5170b274742888a81be1ecdcee, type: 3}
+  m_Name: CaptainDice
+  m_EditorClassIdentifier: Assembly-CSharp::DiceSkin
+  sprites:
+  - {fileID: 7808937854475564482, guid: 4572eb6f89cbf4544a9348ae3ece9869, type: 3}
+  - {fileID: -4648113270414329034, guid: 116f36fbdb7f39543b2ce86651eb39c2, type: 3}
+  - {fileID: 2415500190973329194, guid: 235804a89eab2a444821220e2763f0a7, type: 3}
+  - {fileID: 5228691565965163019, guid: a01cb0f234847af4080ef35ff9b42cff, type: 3}
+  - {fileID: -5177697525132002732, guid: a182a7392eae18d4b9f0dda5db0bdf10, type: 3}
+  - {fileID: 8321280337380728828, guid: 0b05987d01453e544b5db205e4b2ab32, type: 3}
